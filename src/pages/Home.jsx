@@ -9,6 +9,11 @@ const Home = () => {
 
     useEffect(() => {
         checkAuth();
+        //Remove #_=_ automatically
+        //This issue is from Facebook
+        if (window.location.hash === "#_=_") {
+            window.history.replaceState(null, null, window.location.pathname);
+        }
     }, []);
 
     const checkAuth = async () => {
@@ -45,7 +50,7 @@ const Home = () => {
     return (
         <div>
             <h1 className="text-5xl">
-                This is home of the barely social app for {user?.fullname} and their username is "{user?.username}" and email is "{user?.email}". Thank You!
+                This is home of the barely social app for "{user?.fullname}" and their username is "{user?.username}" and email is "{user?.email}". Thank You!
             </h1>
         </div>
     );
