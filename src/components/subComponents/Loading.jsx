@@ -16,7 +16,7 @@ const Loading = () => {
                     className="absolute inset-0 bg-gradient-to-top-right from-blue-400/10 via-transparent to-blue-400/5 animate-pulse rounded-full blur-sm"
                 ></div>
             </div>
-            <p className="text-blue-400 text-4xl animate-pulse">
+            <p className="text-blue-400 text-4xl font-semibold animate-pulse">
                 Loading… Because Being Social Takes Efforts...
             </p>
         </div>
