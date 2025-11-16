@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+    --color-dark-blue-900: #142850;
+    --color-mid-blue-700: #27496D;
+    --color-light-blue-500: #0C7B93;
+    --color-blue-400: #00A8CC;
+    --color-off-blue-200: #B8F0FF;
+}
+
+@layer components {
+    .input-field {
+        @apply text-dark-blue-900 text-[20px] font-semibold w-[50%] p-4 rounded bg-off-blue-200 placeholder:opacity-80 placeholder:text-dark-blue-900 placeholder:font-semibold invalid:border-pink-500 invalid:text-pink-600 focus:border-dark-blue-900 focus:outline focus:outline-dark-blue-900 focus:invalid:border-pink-500 focus:invalid:outline-pink-500;
+    }
+}
