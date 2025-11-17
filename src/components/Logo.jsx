@@ -34,13 +34,19 @@ const Logo = (props) => {
 
     return (
         <div
-            className="bg-dark-blue-900 min-h-screen flex justify-center items-center"
+            className="bg-dark-blue-900 min-h-screen flex flex-col justify-center items-center"
             style={{ minWidth: props.width }}
         >
             <h1 className='font-semibold text-9xl text-blue-400'>
                 {text}
                 <span className="animate-pulse font-thin">|</span>
             </h1 >
+
+            {props.width === "100vw" && (
+                <p className="text-blue-400 text-4xl font-semibold animate-pulse mt-6">
+                    Loading… Because Being Social Takes Efforts...
+                </p>
+            )}
         </div >
     )
 }
