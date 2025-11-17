@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Logo = (props) => {
     const [text, setText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [loopNum, setLoopNum] = useState(0);
     const [typingSpeed, setTypingSpeed] = useState(150);
+    const navigate = useNavigate();
 
     const fullText = 'Barely Social';
 
@@ -42,7 +44,22 @@ const Logo = (props) => {
                 <span className="animate-pulse font-thin">|</span>
             </h1 >
 
-            {props.width === "100vw" && (
+            {(props.slash === "true" && props.width === "100vw") && (
+                <div className='flex gap-4 my-8'>
+                    <a href="/login" onClick={() => {
+                        navigate("/login")
+                    }}>
+                        <button className='text-3xl bg-blue-400 text-dark-blue-900 font-semibold rounded my-4 px-8 py-4 hover:bg-off-blue-200 cursor-pointer'>Login</button>
+                    </a>
+
+                    <a href="/create-account" onClick={() => {
+                        navigate("/create-account")
+                    }}>
+                        <button className='text-3xl bg-blue-400 text-dark-blue-900 font-semibold rounded my-4 px-8 py-4 hover:bg-off-blue-200 cursor-pointer'>Create Account</button>
+                    </a>
+                </div>
+            )}
+            {(props.slash === "false" && props.width === "100vw") && (
                 <p className="text-blue-400 text-4xl font-semibold animate-pulse mt-6">
                     Loading… Because Being Social Takes Efforts...
                 </p>

@@ -46,7 +46,7 @@ const Home = () => {
 
     if (loading) {
         // return <Loading />
-        return <Logo width="100vw" />
+        return <Logo width="100vw" slash="false" />
     }
 
     return (

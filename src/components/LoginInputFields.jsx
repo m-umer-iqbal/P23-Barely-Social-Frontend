@@ -25,7 +25,7 @@ const LoginInputFields = () => {
             let data = await response.json();
             if (data.success) {
                 reset();
-                navigate("/")
+                navigate("/home")
             } else {
                 reset();
                 alert(data.message)

@@ -24,7 +24,7 @@ const CreateAccountInputFields = () => {
 
         if (data.success) {
             reset();
-            navigate("/")
+            navigate("/home")
         } else {
             reset();
             alert(data.message)

@@ -2,12 +2,17 @@ import React from "react"
 import CreateAccount from "./pages/CreateAccount"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
+import Logo from './components/Logo'
 import { createBrowserRouter, RouterProvider } from "react-router"
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <Logo width="100vw" slash="true" />
+    },
+    {
+      path: "/home",
       element: <Home />
     },
     {
