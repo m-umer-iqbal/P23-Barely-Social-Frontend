@@ -1,17 +1,6 @@
-// import React from 'react'
-
-// const Logo = () => {
-//     return (
-//         <div className='bg-dark-blue-900 min-h-screen min-w-[50vw] flex justify-center items-center'>
-//             <h1 className='font-semibold text-9xl text-blue-400'>Barely Social</h1>
-//         </div>
-//     )
-// }
-
-// export default Logo
 import React, { useState, useEffect } from 'react'
 
-const Logo = () => {
+const Logo = (props) => {
     const [text, setText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [loopNum, setLoopNum] = useState(0);
@@ -44,12 +33,15 @@ const Logo = () => {
     }, [text, isDeleting, loopNum, typingSpeed, fullText]);
 
     return (
-        <div className='bg-dark-blue-900 min-h-screen min-w-[50vw] flex justify-center items-center'>
+        <div
+            className="bg-dark-blue-900 min-h-screen flex justify-center items-center"
+            style={{ minWidth: props.width }}
+        >
             <h1 className='font-semibold text-9xl text-blue-400'>
                 {text}
                 <span className="animate-pulse font-thin">|</span>
-            </h1>
-        </div>
+            </h1 >
+        </div >
     )
 }
 

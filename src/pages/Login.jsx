@@ -28,7 +28,7 @@ const Login = () => {
 
             </div>
 
-            <Logo />
+            <Logo width="50vw" />
 
         </div>
     )

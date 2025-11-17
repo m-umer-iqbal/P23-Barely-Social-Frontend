@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from "../components/subComponents/Loading"
+import Logo from "../components/Logo"
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -44,7 +45,8 @@ const Home = () => {
     }
 
     if (loading) {
-        return <Loading />
+        // return <Loading />
+        return <Logo width="100vw" />
     }
 
     return (

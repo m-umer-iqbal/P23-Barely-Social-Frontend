@@ -9,7 +9,7 @@ import FormHeading from '../components/subComponents/formHeading';
 const SignUp = () => {
     return (
         <div className='flex bg-blue-400 overflow-x-hidden'>
-            <Logo />
+            <Logo width="50vw" />
 
             <div className='flex flex-col justify-center items-center space-y-4 min-w-[50%]'>
                 <FormHeading heading="Get Social… Barely" />
