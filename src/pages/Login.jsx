@@ -16,7 +16,7 @@ const Login = () => {
 
                 <LoginInputFields />
 
-                <p className='font-semibold text-2xl'>Barely other options to get back...</p>
+                <p className='text-dark-blue-900 font-semibold text-2xl'>Barely other options to get back...</p>
 
                 <div className='flex gap-8 my-4'>
                     <FacebookBtn />

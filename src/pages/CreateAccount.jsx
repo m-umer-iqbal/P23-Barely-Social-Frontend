@@ -16,7 +16,7 @@ const SignUp = () => {
 
                 <CreateAccountInputFields />
 
-                <p className='font-semibold text-2xl'>Barely other options to create account....</p>
+                <p className='text-dark-blue-900 font-semibold text-2xl'>Barely other options to create account....</p>
 
                 <div className='flex gap-8 my-4'>
                     <FacebookBtn />
