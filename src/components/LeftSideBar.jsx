@@ -54,6 +54,7 @@ const LeftSideBar = (props) => {
                         }}
                         disabled={!isNameEditable}
                         ref={fullnameInputRef}
+                        onBlur={() => setTimeout(() => setIsNameEditable(false), 200)}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
@@ -85,6 +86,7 @@ const LeftSideBar = (props) => {
                         }}
                         disabled={!isBioEditable}
                         ref={bioInputRef}
+                        onBlur={() => setTimeout(() => setIsBioEditable(false), 200)}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
@@ -112,6 +114,7 @@ const LeftSideBar = (props) => {
                         }}
                         disabled={!isEmailEditable}
                         ref={emailInputRef}
+                        onBlur={() => setTimeout(() => setIsEmailEditable(false), 200)}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
