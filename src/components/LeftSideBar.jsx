@@ -2,24 +2,22 @@ import React from 'react'
 import { useState, useRef, useEffect } from 'react'
 
 const LeftSideBar = (props) => {
-    const initialValues = [props.fullname, props.username, props.bio, props.email]
-
     // Edit Icon Display or not
     const [nameEdit, setNameEdit] = useState(false)
     const [bioEdit, setBioEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
 
     // Actual Values Displayed
-    const [fullname, setFullname] = useState(initialValues[0])
-    const [bio, setBio] = useState(initialValues[2])
-    const [email, setEmail] = useState(initialValues[3])
+    const [fullname, setFullname] = useState(props.fullname)
+    const [bio, setBio] = useState(props.bio)
+    const [email, setEmail] = useState(props.email)
 
     // Is in editing mode or not
     const [isNameEditable, setIsNameEditable] = useState(false)
     const [isBioEditable, setIsBioEditable] = useState(false)
     const [isEmailEditable, setIsEmailEditable] = useState(false)
 
-    // is something vlaues changed or not
+    // is something values changed or not
     const [isSomethingEdited, setIsSomethingEdited] = useState(false)
 
     // Create a ref for the input field
@@ -28,10 +26,13 @@ const LeftSideBar = (props) => {
     const emailInputRef = useRef(null)
 
     useEffect(() => {
-        // Check if any field has changed from its original value
-        const hasChanges = fullname !== initialValues[0] || bio !== initialValues[2] || email !== initialValues[3]
+        const hasChanges =
+            fullname !== props.fullname ||
+            bio !== props.bio ||
+            email !== props.email
+
         setIsSomethingEdited(hasChanges)
-    }, [fullname, bio, email, initialValues])
+    }, [fullname, bio, email, props.fullname, props.bio, props.email])
 
     return (
         <div className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl'>
@@ -54,22 +55,21 @@ const LeftSideBar = (props) => {
                         }}
                         disabled={!isNameEditable}
                         ref={fullnameInputRef}
-                        onBlur={() => setTimeout(() => setIsNameEditable(false), 200)}
+                        onBlur={() => setIsNameEditable(false)}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
                         alt="Edit-Icon"
                         className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                         onClick={() => {
-                            setIsNameEditable(true) // Enable editing
-                            // Focus the input field after a small delay to ensure it's enabled
+                            setIsNameEditable(true)
                             setTimeout(() => {
                                 fullnameInputRef.current.focus()
                             }, 0)
                         }}
                     />
                 </div>
-                <p className='text-2xl text-mid-blue-700'>@{initialValues[1]}</p>
+                <p className='text-2xl text-mid-blue-700'>@{props.username}</p>
             </div>
 
             <div className='flex flex-col justify-center items-center space-y-2'>
@@ -83,17 +83,16 @@ const LeftSideBar = (props) => {
                         onChange={(e) => { setBio(e.target.value) }}
                         disabled={!isBioEditable}
                         ref={bioInputRef}
-                        onBlur={() => setTimeout(() => setIsBioEditable(false), 200)}
+                        onBlur={() => setIsBioEditable(false)}
                         rows={3}
                         style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
                         alt="Edit-Icon"
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-1 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                         onClick={() => {
-                            setIsBioEditable(true) // Enable editing
-                            // Focus the input field after a small delay to ensure it's enabled
+                            setIsBioEditable(true)
                             setTimeout(() => {
                                 bioInputRef.current.focus()
                             }, 0)
@@ -113,15 +112,14 @@ const LeftSideBar = (props) => {
                         }}
                         disabled={!isEmailEditable}
                         ref={emailInputRef}
-                        onBlur={() => setTimeout(() => setIsEmailEditable(false), 200)}
+                        onBlur={() => setIsEmailEditable(false)}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
                         alt="Edit-Icon"
                         className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                         onClick={() => {
-                            setIsEmailEditable(true) // Enable editing
-                            // Focus the input field after a small delay to ensure it's enabled
+                            setIsEmailEditable(true)
                             setTimeout(() => {
                                 emailInputRef.current.focus()
                             }, 0)
@@ -143,7 +141,9 @@ const LeftSideBar = (props) => {
             </div>
 
             {isSomethingEdited && <div>
-                <a href=""><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>Update</button></a>
+                <button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
+                    Update
+                </button>
             </div>}
         </div>
     )
