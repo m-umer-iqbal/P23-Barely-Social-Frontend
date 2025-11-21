@@ -14,7 +14,8 @@ const LeftSideBar = (props) => {
                     alt="Profile-Picture"
                     className='w-50 rounded-[100%]'
                 />
-                <div className='flex justify-center items-baseline space-x-4 relative' onMouseOver={() => { setNameEdit(true) }}
+                <div className='flex justify-center items-baseline space-x-4 relative group'
+                    onMouseOver={() => { setNameEdit(true) }}
                     onMouseOut={() => { setNameEdit(false) }}>
                     <input
                         type="text"
@@ -22,13 +23,20 @@ const LeftSideBar = (props) => {
                         placeholder='Set Your Full Name'
                         className='font-semibold text-center field-sizing-content'
                     />
-                    {nameEdit && <img src="/src/assets/edit-icon.svg" alt="Edit-Icon" className='text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer' />}
+                    <img 
+                        src="/src/assets/edit-icon.svg" 
+                        alt="Edit-Icon" 
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
+                            nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                        }`} 
+                    />
                 </div>
                 <p className='text-2xl text-mid-blue-700'>@{props.username}</p>
             </div>
 
             <div className='flex flex-col justify-center items-center'>
-                <div className='flex justify-center items-baseline space-x-4 relative' onMouseOver={() => { setBioEdit(true) }}
+                <div className='flex justify-center items-baseline space-x-4 relative group'
+                    onMouseOver={() => { setBioEdit(true) }}
                     onMouseOut={() => { setBioEdit(false) }}>
                     <input
                         type="text"
@@ -36,9 +44,16 @@ const LeftSideBar = (props) => {
                         placeholder="Bio"
                         className='text-center field-sizing-content'
                     />
-                    {bioEdit && <img src="/src/assets/edit-icon.svg" alt="Edit-Icon" className='text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer' />}
+                    <img 
+                        src="/src/assets/edit-icon.svg" 
+                        alt="Edit-Icon" 
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
+                            bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                        }`} 
+                    />
                 </div>
-                <div className='flex justify-center items-baseline space-x-4 relative' onMouseOver={() => { setEmailEdit(true) }}
+                <div className='flex justify-center items-baseline space-x-4 relative group'
+                    onMouseOver={() => { setEmailEdit(true) }}
                     onMouseOut={() => { setEmailEdit(false) }}>
                     <input
                         type='text'
@@ -46,7 +61,13 @@ const LeftSideBar = (props) => {
                         placeholder='Email Address'
                         className='text-2xl text-mid-blue-700 text-center field-sizing-content'
                     />
-                    {emailEdit && <img src="/src/assets/edit-icon.svg" alt="Edit-Icon" className='text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer' />}
+                    <img 
+                        src="/src/assets/edit-icon.svg" 
+                        alt="Edit-Icon" 
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
+                            emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                        }`} 
+                    />
                 </div>
             </div>
 
