@@ -12,7 +12,7 @@ const LeftSideBar = (props) => {
                 <img
                     src="https://picsum.photos/2000.webp"
                     alt="Profile-Picture"
-                    className='w-50 rounded-[100%]'
+                    className='w-60 rounded-[100%] border-8 border-dark-blue-900'
                 />
                 <div className='flex justify-center items-baseline space-x-4 relative group'
                     onMouseOver={() => { setNameEdit(true) }}
@@ -21,20 +21,19 @@ const LeftSideBar = (props) => {
                         type="text"
                         value={props.fullname}
                         placeholder='Set Your Full Name'
-                        className='font-semibold text-center field-sizing-content'
+                        className='font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
                     />
-                    <img 
-                        src="/src/assets/edit-icon.svg" 
-                        alt="Edit-Icon" 
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
-                            nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                        }`} 
+                    <img
+                        src="/src/assets/edit-icon.svg"
+                        alt="Edit-Icon"
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                            }`}
                     />
                 </div>
                 <p className='text-2xl text-mid-blue-700'>@{props.username}</p>
             </div>
 
-            <div className='flex flex-col justify-center items-center'>
+            <div className='flex flex-col justify-center items-center space-y-2'>
                 <div className='flex justify-center items-baseline space-x-4 relative group'
                     onMouseOver={() => { setBioEdit(true) }}
                     onMouseOut={() => { setBioEdit(false) }}>
@@ -42,14 +41,13 @@ const LeftSideBar = (props) => {
                         type="text"
                         value={props.bio}
                         placeholder="Bio"
-                        className='text-center field-sizing-content'
+                        className='text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
                     />
-                    <img 
-                        src="/src/assets/edit-icon.svg" 
-                        alt="Edit-Icon" 
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
-                            bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                        }`} 
+                    <img
+                        src="/src/assets/edit-icon.svg"
+                        alt="Edit-Icon"
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                            }`}
                     />
                 </div>
                 <div className='flex justify-center items-baseline space-x-4 relative group'
@@ -59,14 +57,13 @@ const LeftSideBar = (props) => {
                         type='text'
                         value={props.email}
                         placeholder='Email Address'
-                        className='text-2xl text-mid-blue-700 text-center field-sizing-content'
+                        className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
                     />
-                    <img 
-                        src="/src/assets/edit-icon.svg" 
-                        alt="Edit-Icon" 
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${
-                            emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-                        }`} 
+                    <img
+                        src="/src/assets/edit-icon.svg"
+                        alt="Edit-Icon"
+                        className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                            }`}
                     />
                 </div>
             </div>
