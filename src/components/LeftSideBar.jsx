@@ -48,7 +48,7 @@ const LeftSideBar = (props) => {
                     <input
                         type="text"
                         value={fullname}
-                        placeholder='Set Your Full Name'
+                        placeholder='Full Name'
                         className='font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
                         onChange={(e) => {
                             setFullname(e.target.value)
@@ -143,6 +143,11 @@ const LeftSideBar = (props) => {
             {isSomethingEdited && <div>
                 <button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
                     Update
+                </button>
+            </div>}
+            {!isSomethingEdited && <div>
+                <button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
+                    Logout
                 </button>
             </div>}
         </div>
