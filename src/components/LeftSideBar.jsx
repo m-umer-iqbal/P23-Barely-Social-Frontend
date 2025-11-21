@@ -56,18 +56,25 @@ const LeftSideBar = (props) => {
                         disabled={!isNameEditable}
                         ref={fullnameInputRef}
                         onBlur={() => setIsNameEditable(false)}
+                        maxLength={50} // Add max length for character counting
                     />
-                    <img
-                        src="/src/assets/edit-icon.svg"
-                        alt="Edit-Icon"
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
-                        onClick={() => {
-                            setIsNameEditable(true)
-                            setTimeout(() => {
-                                fullnameInputRef.current.focus()
-                            }, 0)
-                        }}
-                    />
+                    {isNameEditable ? (
+                        <div className='absolute bottom-2 -right-6 text-sm text-mid-blue-700'>
+                            {fullname.length}/20
+                        </div>
+                    ) : (
+                        <img
+                            src="/src/assets/edit-icon.svg"
+                            alt="Edit-Icon"
+                            className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                            onClick={() => {
+                                setIsNameEditable(true)
+                                setTimeout(() => {
+                                    fullnameInputRef.current.focus()
+                                }, 0)
+                            }}
+                        />
+                    )}
                 </div>
                 <p className='text-2xl text-mid-blue-700'>@{props.username}</p>
             </div>
@@ -85,19 +92,31 @@ const LeftSideBar = (props) => {
                         ref={bioInputRef}
                         onBlur={() => setIsBioEditable(false)}
                         rows={3}
-                        style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
-                    />
-                    <img
-                        src="/src/assets/edit-icon.svg"
-                        alt="Edit-Icon"
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-1 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
-                        onClick={() => {
-                            setIsBioEditable(true)
-                            setTimeout(() => {
-                                bioInputRef.current.focus()
-                            }, 0)
+                        style={{
+                            wordWrap: 'break-word',
+                            overflowWrap: 'break-word',
+                            wordBreak: 'break-word',
+                            hyphens: 'auto'
                         }}
+                        maxLength={75} // Add max length for character counting
                     />
+                    {isBioEditable ? (
+                        <div className='absolute bottom-1 -right-6 text-sm text-mid-blue-700'>
+                            {bio.length}/75
+                        </div>
+                    ) : (
+                        <img
+                            src="/src/assets/edit-icon.svg"
+                            alt="Edit-Icon"
+                            className={`text-[12px] fill-dark-blue-900 absolute bottom-1 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                            onClick={() => {
+                                setIsBioEditable(true)
+                                setTimeout(() => {
+                                    bioInputRef.current.focus()
+                                }, 0)
+                            }}
+                        />
+                    )}
                 </div>
                 <div className='flex justify-center items-baseline space-x-4 relative group'
                     onMouseOver={() => { setEmailEdit(true) }}
@@ -113,18 +132,25 @@ const LeftSideBar = (props) => {
                         disabled={!isEmailEditable}
                         ref={emailInputRef}
                         onBlur={() => setIsEmailEditable(false)}
+                        maxLength={30} // Add max length for character counting
                     />
-                    <img
-                        src="/src/assets/edit-icon.svg"
-                        alt="Edit-Icon"
-                        className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
-                        onClick={() => {
-                            setIsEmailEditable(true)
-                            setTimeout(() => {
-                                emailInputRef.current.focus()
-                            }, 0)
-                        }}
-                    />
+                    {isEmailEditable ? (
+                        <div className='absolute bottom-0.5 -right-6 text-sm text-mid-blue-700'>
+                            {email.length}/30
+                        </div>
+                    ) : (
+                        <img
+                            src="/src/assets/edit-icon.svg"
+                            alt="Edit-Icon"
+                            className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                            onClick={() => {
+                                setIsEmailEditable(true)
+                                setTimeout(() => {
+                                    emailInputRef.current.focus()
+                                }, 0)
+                            }}
+                        />
+                    )}
                 </div>
             </div>
 
