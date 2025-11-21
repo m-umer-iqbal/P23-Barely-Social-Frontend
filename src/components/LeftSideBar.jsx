@@ -34,7 +34,7 @@ const LeftSideBar = (props) => {
     }, [fullname, bio, email, initialValues])
 
     return (
-        <div className='flex flex-col items-center gap-8 min-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl'>
+        <div className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl'>
             <div className='flex flex-col justify-center items-center gap-2'>
                 <img
                     src="https://picsum.photos/2000.webp"
@@ -75,18 +75,17 @@ const LeftSideBar = (props) => {
             <div className='flex flex-col justify-center items-center space-y-2'>
                 <div className='flex justify-center items-baseline space-x-4 relative group'
                     onMouseOver={() => { setBioEdit(true) }}
-                    onMouseOut={() => { setBioEdit(false) }}>
-                    <input
-                        type="text"
+                    onMouseOut={() => { setBioEdit(false) }} >
+                    <textarea
                         value={bio}
                         placeholder="Bio"
-                        className='text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
-                        onChange={(e) => {
-                            setBio(e.target.value)
-                        }}
+                        className='text-2xl font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder:text-3xl placeholder-mid-blue-700 w-full max-w-full resize-none overflow-y-hidden leading-tight wrap-break-words'
+                        onChange={(e) => { setBio(e.target.value) }}
                         disabled={!isBioEditable}
                         ref={bioInputRef}
                         onBlur={() => setTimeout(() => setIsBioEditable(false), 200)}
+                        rows={3}
+                        style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
                     />
                     <img
                         src="/src/assets/edit-icon.svg"
@@ -144,7 +143,7 @@ const LeftSideBar = (props) => {
             </div>
 
             {isSomethingEdited && <div>
-                <a href=""><button>Update</button></a>
+                <a href=""><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>Update</button></a>
             </div>}
         </div>
     )
