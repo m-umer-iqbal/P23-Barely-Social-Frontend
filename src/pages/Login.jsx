@@ -1,9 +1,9 @@
 import React from 'react'
 import Logo from '../components/Logo'
 import AlreadyHaveAccount from '../components/subComponents/AlreadyHaveAccount';
-import GoogleBtn from '../components/Btns/GoogleBtn';
-import GithubBtn from '../components/Btns/GithubBtn';
-import FacebookBtn from '../components/Btns/FacebookBtn';
+import GoogleBtn from '../components/subComponents//Btns/GoogleBtn';
+import GithubBtn from '../components/subComponents//Btns/GithubBtn';
+import FacebookBtn from '../components/subComponents//Btns/FacebookBtn';
 import FormHeading from '../components/subComponents/formHeading';
 import LoginInputFields from '../components/LoginInputFields';
 
