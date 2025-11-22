@@ -39,8 +39,9 @@ const Home = () => {
             } catch (error) {
                 console.error("Auth check error:", error);
                 alert("Error Occur In Checking User Authentication.");
+                navigate("/login")
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
         }, 1000)
     }
