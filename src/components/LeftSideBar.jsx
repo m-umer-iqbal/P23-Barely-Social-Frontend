@@ -56,7 +56,7 @@ const LeftSideBar = (props) => {
                         disabled={!isNameEditable}
                         ref={fullnameInputRef}
                         onBlur={() => setIsNameEditable(false)}
-                        maxLength={50} // Add max length for character counting
+                        maxLength={20} // Add max length for character counting
                     />
                     {isNameEditable ? (
                         <div className='absolute bottom-2 -right-6 text-sm text-mid-blue-700'>
