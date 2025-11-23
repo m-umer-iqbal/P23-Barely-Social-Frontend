@@ -1,24 +1,79 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 const LeftSideBar = (props) => {
+    const navigate = useNavigate();
+    const [showUpdateBtn, setShowUpdateBtn] = useState(true);
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        formState: { errors, isSubmitting, isDirty },
+    } = useForm({
+        defaultValues: {
+            id: props.id,
+            fullname: props.fullname,
+            bio: props.bio,
+            email: props.email
+        },
+    })
+
+    // Manually update form values when inputs change
+    const handleFullnameChange = (e) => {
+        setValue("fullname", e.target.value, { shouldDirty: true })
+    }
+
+    const handleBioChange = (e) => {
+        setValue("bio", e.target.value, { shouldDirty: true })
+    }
+
+    const handleEmailChange = (e) => {
+        setValue("email", e.target.value, { shouldDirty: true })
+    }
+
+    const onSubmit = async (formdata) => {
+        try {
+            console.log(formdata)
+            let response = await fetch(`http://localhost:3000/update/${props.id}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(formdata),
+            })
+            let data = await response.json();
+            if (data.success) {
+                alert(data.message)
+                setShowUpdateBtn(false); // Hide after successful update
+                navigate("/home")
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.error('Update error:', error);
+            alert("Update failed.");
+        }
+    }
+
+    // Watch the fields for real-time updates
+    const fullnameValue = watch("fullname")
+    const bioValue = watch("bio")
+    const emailValue = watch("email")
+
     // Edit Icon Display or not
     const [nameEdit, setNameEdit] = useState(false)
     const [bioEdit, setBioEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
 
-    // Actual Values Displayed
-    const [fullname, setFullname] = useState(props.fullname)
-    const [bio, setBio] = useState(props.bio)
-    const [email, setEmail] = useState(props.email)
-
     // Is in editing mode or not
     const [isNameEditable, setIsNameEditable] = useState(false)
     const [isBioEditable, setIsBioEditable] = useState(false)
     const [isEmailEditable, setIsEmailEditable] = useState(false)
-
-    // is something values changed or not
-    const [isSomethingEdited, setIsSomethingEdited] = useState(false)
 
     // Create a ref for the input field
     const fullnameInputRef = useRef(null)
@@ -26,16 +81,21 @@ const LeftSideBar = (props) => {
     const emailInputRef = useRef(null)
 
     useEffect(() => {
-        const hasChanges =
-            fullname !== props.fullname ||
-            bio !== props.bio ||
-            email !== props.email
+        // Manually register the fields
+        register("fullname")
+        register("bio")
+        register("email")
+    }, [register])
 
-        setIsSomethingEdited(hasChanges)
-    }, [fullname, bio, email, props.fullname, props.bio, props.email])
+    // Reset the button when user starts editing again
+    useEffect(() => {
+        if (isDirty) {
+            setShowUpdateBtn(true);
+        }
+    }, [isDirty]);
 
     return (
-        <div className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl'>
+        <form className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col justify-center items-center gap-2'>
                 <img
                     src="https://picsum.photos/2000.webp"
@@ -47,12 +107,11 @@ const LeftSideBar = (props) => {
                     onMouseOut={() => { setNameEdit(false) }}>
                     <input
                         type="text"
-                        value={fullname}
+                        value={fullnameValue}
+                        autoComplete='off'
                         placeholder='Full Name'
                         className='font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
-                        onChange={(e) => {
-                            setFullname(e.target.value)
-                        }}
+                        onChange={handleFullnameChange}
                         disabled={!isNameEditable}
                         ref={fullnameInputRef}
                         onBlur={() => setIsNameEditable(false)}
@@ -60,7 +119,7 @@ const LeftSideBar = (props) => {
                     />
                     {isNameEditable ? (
                         <div className='absolute bottom-2 -right-6 text-sm text-mid-blue-700'>
-                            {fullname.length}/20
+                            {(fullnameValue || '').length || 0}/20
                         </div>
                     ) : (
                         <img
@@ -84,10 +143,11 @@ const LeftSideBar = (props) => {
                     onMouseOver={() => { setBioEdit(true) }}
                     onMouseOut={() => { setBioEdit(false) }} >
                     <textarea
-                        value={bio}
+                        value={bioValue}
+                        autoComplete='off'
                         placeholder="Bio"
                         className='text-2xl font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder:text-3xl placeholder-mid-blue-700 w-full max-w-full resize-none overflow-y-hidden leading-tight wrap-break-words'
-                        onChange={(e) => { setBio(e.target.value) }}
+                        onChange={handleBioChange}
                         disabled={!isBioEditable}
                         ref={bioInputRef}
                         onBlur={() => setIsBioEditable(false)}
@@ -102,7 +162,7 @@ const LeftSideBar = (props) => {
                     />
                     {isBioEditable ? (
                         <div className='absolute bottom-1 -right-6 text-sm text-mid-blue-700'>
-                            {bio.length}/75
+                            {(bioValue || '').length || 0}/75
                         </div>
                     ) : (
                         <img
@@ -122,13 +182,13 @@ const LeftSideBar = (props) => {
                     onMouseOver={() => { setEmailEdit(true) }}
                     onMouseOut={() => { setEmailEdit(false) }}>
                     <input
+                        {...register("email")}
                         type='text'
-                        value={email}
+                        value={emailValue}
+                        autoComplete='off'
                         placeholder='Email Address'
                         className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
-                        onChange={(e) => {
-                            setEmail(e.target.value)
-                        }}
+                        onChange={handleEmailChange}
                         disabled={!isEmailEditable}
                         ref={emailInputRef}
                         onBlur={() => setIsEmailEditable(false)}
@@ -136,7 +196,7 @@ const LeftSideBar = (props) => {
                     />
                     {isEmailEditable ? (
                         <div className='absolute bottom-0.5 -right-6 text-sm text-mid-blue-700'>
-                            {email.length}/30
+                            {(emailValue || '').length || 0}/30
                         </div>
                     ) : (
                         <img
@@ -166,17 +226,18 @@ const LeftSideBar = (props) => {
                 </div>
             </div>
 
-            {isSomethingEdited && <div>
-                <button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
-                    Update
-                </button>
-            </div>}
-            {!isSomethingEdited && <div>
+            {(isDirty && showUpdateBtn) && <input
+                type='submit'
+                value={isSubmitting ? "Processing..." : "Update"}
+                disabled={isSubmitting}
+                className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'
+            />}
+            {/* {isDirty && <div>
                 <button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
                     Logout
                 </button>
-            </div>}
-        </div>
+            </div>} */}
+        </form>
     )
 }
 
