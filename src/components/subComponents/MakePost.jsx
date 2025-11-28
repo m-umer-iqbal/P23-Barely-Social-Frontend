@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form'
+import { idContext } from '../../context/context';
 
 const MakePost = (props) => {
     const id = useContext(idContext)
