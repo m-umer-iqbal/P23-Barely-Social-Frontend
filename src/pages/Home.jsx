@@ -4,6 +4,7 @@ import Logo from "../components/Logo"
 import LeftSideBar from '../components/LeftSideBar';
 import MainSection from '../components/MainSection';
 import RightSideBar from '../components/RightSideBar';
+import { idContext } from "../context/context.js"
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -52,14 +53,16 @@ const Home = () => {
     }
 
     return (
-        <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 overflow-y-hidden'>
-            <LeftSideBar id={user?.id || ""} fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
-            <MainSection id={user?.id || ""} />
-            <RightSideBar />
-            {/* <h1 className="text-5xl min-w-[60vw] bg-white">
+        <idContext.Provider value={user?.id || ""}>
+            <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 overflow-y-hidden'>
+                <LeftSideBar fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
+                <MainSection />
+                <RightSideBar />
+                {/* <h1 className="text-5xl min-w-[60vw] bg-white">
                 This is home of the barely social app for "{user?.fullname}" and their username is "{user?.username}" and email is "{user?.email}". Thank You!
             </h1> */}
-        </div>
+            </div>
+        </idContext.Provider>
     );
 }
 

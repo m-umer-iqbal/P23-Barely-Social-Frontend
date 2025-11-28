@@ -1,11 +1,13 @@
 import React from 'react'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { idContext } from '../context/context'
 
 const LeftSideBar = (props) => {
     const navigate = useNavigate();
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
+    const id = useContext(idContext)
 
     const {
         register,
@@ -16,7 +18,7 @@ const LeftSideBar = (props) => {
         formState: { errors, isSubmitting, isDirty },
     } = useForm({
         defaultValues: {
-            id: props.id,
+            id: id,
             fullname: props.fullname,
             bio: props.bio,
             email: props.email
@@ -39,7 +41,7 @@ const LeftSideBar = (props) => {
     const onSubmit = async (formdata) => {
         try {
             console.log(formdata)
-            let response = await fetch(`http://localhost:3000/update/${props.id}`, {
+            let response = await fetch(`http://localhost:3000/update/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

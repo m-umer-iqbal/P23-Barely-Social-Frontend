@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form'
 
 const MakePost = (props) => {
+    const id = useContext(idContext)
+
     const {
         register,
         handleSubmit,
@@ -22,7 +24,7 @@ const MakePost = (props) => {
     const onSubmit = async (formdata) => {
         try {
             console.log(formdata)
-            let response = await fetch(`http://localhost:3000/post/${props.id}`, {
+            let response = await fetch(`http://localhost:3000/post/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
