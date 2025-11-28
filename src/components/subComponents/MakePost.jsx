@@ -2,9 +2,11 @@ import React from 'react'
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form'
 import { idContext } from '../../context/context';
+import { useNavigate } from "react-router-dom";
 
 const MakePost = (props) => {
     const id = useContext(idContext)
+    const navigate = useNavigate();
 
     const {
         register,
@@ -49,23 +51,31 @@ const MakePost = (props) => {
 
     return (
         <form className='static top-0 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 space-y-4' onSubmit={handleSubmit(onSubmit)}>
-            <textarea
-                className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
-                placeholder="Share your thoughts..."
-                autoComplete='off'
-                value={contentValue}
-                {...register("content", {
-                    required: "You can’t be Barely Social without writing anything 😏",
-                    maxLength: {
-                        value: 500,
-                        message: "Whoa there! That’s too social — max 500 characters 😅",
-                    }
-                })}
-                maxLength={500}
-                onFocus={() => setIsContentEditable(true)}
-                onBlur={() => setIsContentEditable(false)}
+            <div className='flex gap-4'>
+                <img
+                    src="https://picsum.photos/2000.webp"
+                    alt="DP"
+                    className='min-w-12 max-w-12 max-h-12 rounded-[100%]'
+                />
+                <textarea
+                    className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
+                    placeholder="Share your thoughts..."
+                    autoComplete='off'
+                    value={contentValue}
+                    {...register("content", {
+                        required: "You can’t be Barely Social without writing anything 😏",
+                        maxLength: {
+                            value: 500,
+                            message: "Whoa there! That’s too social — max 500 characters 😅",
+                        }
+                    })}
+                    maxLength={500}
+                    onFocus={() => setIsContentEditable(true)}
+                    onBlur={() => setIsContentEditable(false)}
 
-            />
+                />
+            </div>
+
             <div className='flex justify-between items-center'>
                 <a href="#">
                     <button className='flex bg-off-blue-200 text-dark-blue-900 rounded-4xl px-3 py-2 font-semibold cursor-pointer'>
@@ -78,14 +88,14 @@ const MakePost = (props) => {
                         {(contentValue || '').length || 0}/500
                     </div>
                 )}
-                <div className='flex justify-center items-center bg-off-blue-200 text-dark-blue-900 rounded-4xl px-3 py-2 font-semibold cursor-pointer'>
-                    <img src="/src/assets/post-icon.svg" alt="Image-Upload-Icon" />
-                    <input
-                        disabled={isSubmitting}
-                        type="submit"
-                        value={isSubmitting ? "Posting..." : "Post"}
-                        className='cursor-pointer' />
-                </div>
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className='flex justify-center items-center bg-off-blue-200 text-dark-blue-900 rounded-4xl px-3 py-2 font-semibold cursor-pointer'
+                >
+                    {!isSubmitting && <img src="/src/assets/post-icon.svg" alt="Post" />}
+                    {isSubmitting ? "Posting..." : "Post"}
+                </button>
             </div>
         </form >
     )
