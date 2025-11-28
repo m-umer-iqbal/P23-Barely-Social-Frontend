@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../components/Logo"
 import LeftSideBar from '../components/LeftSideBar';
+import MainSection from '../components/MainSection';
+import RightSideBar from '../components/RightSideBar';
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -52,9 +54,11 @@ const Home = () => {
     return (
         <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900'>
             <LeftSideBar id={user?.id || ""} fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
-            <h1 className="text-5xl min-w-[60vw] bg-white">
+            <MainSection />
+            <RightSideBar />
+            {/* <h1 className="text-5xl min-w-[60vw] bg-white">
                 This is home of the barely social app for "{user?.fullname}" and their username is "{user?.username}" and email is "{user?.email}". Thank You!
-            </h1>
+            </h1> */}
         </div>
     );
 }
