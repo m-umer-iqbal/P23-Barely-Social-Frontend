@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
 
 const MainSection = () => {
+    const [posts, setPosts] = useState([])
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/post", {
+                    method: "GET"
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    console.log(data.posts)
+                    setPosts(data.posts);
+                } else {
+                    alert("Error fetching posts.");
+                }
+            } catch {
+                alert("Error occurred.");
+            }
+        };
+        fetchPosts();
+    }, [])
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-8 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
             <MakePost />
