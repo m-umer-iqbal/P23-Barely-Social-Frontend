@@ -54,7 +54,7 @@ const Home = () => {
 
     return (
         <idContext.Provider value={user?.id || ""}>
-            <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 overflow-y-hidden'>
+            <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
                 <LeftSideBar fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
                 <MainSection />
                 <RightSideBar />

@@ -99,7 +99,7 @@ const LeftSideBar = (props) => {
     }, [isDirty]);
 
     return (
-        <div className='flex flex-col items-center min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl'>
+        <div className='flex flex-col items-center min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
             <form className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl' onSubmit={handleSubmit(onSubmit)}>
                 <div className='flex flex-col justify-center items-center gap-2'>
                     <img
