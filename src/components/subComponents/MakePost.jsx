@@ -61,7 +61,6 @@ const MakePost = (props) => {
                     className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
                     placeholder="Share your thoughts..."
                     autoComplete='off'
-                    value={contentValue}
                     {...register("content", {
                         required: "You can’t be Barely Social without writing anything 😏",
                         maxLength: {
@@ -72,7 +71,6 @@ const MakePost = (props) => {
                     maxLength={500}
                     onFocus={() => setIsContentEditable(true)}
                     onBlur={() => setIsContentEditable(false)}
-
                 />
             </div>
 
@@ -86,11 +84,19 @@ const MakePost = (props) => {
                         <span>Image</span>
                     </button>
                 </a>
-                {isContentEditable && (
-                    <div className='text-sm text-off-blue-200 font-semibold self-baseline-last'>
-                        {(contentValue || '').length || 0}/500
-                    </div>
+
+                {errors.content ? (
+                    <span className="text-red-500 text-[20px] font-semibold">
+                        {errors.content.message}
+                    </span>
+                ) : (
+                    isContentEditable && (
+                        <div className="text-sm text-off-blue-200 font-semibold">
+                            {(contentValue || '').length}/500
+                        </div>
+                    )
                 )}
+
                 <button
                     type="submit"
                     disabled={isSubmitting}
