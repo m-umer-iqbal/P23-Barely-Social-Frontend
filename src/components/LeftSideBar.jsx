@@ -235,11 +235,11 @@ const LeftSideBar = (props) => {
                     type='submit'
                     value={isSubmitting ? "Processing..." : "Update"}
                     disabled={isSubmitting}
-                    className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
+                    className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
                 />}
             </form>
             {!isDirty && <div>
-                <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
+                <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
                     Logout
                 </button></a>
             </div>}
