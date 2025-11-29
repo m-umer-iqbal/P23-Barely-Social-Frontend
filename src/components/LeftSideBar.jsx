@@ -99,8 +99,17 @@ const LeftSideBar = (props) => {
     }, [isDirty]);
 
     return (
-        <div className='flex flex-col items-center min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
-            <form className='flex flex-col items-center gap-8 min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl' onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col items-center 
+                    min-w-[25vw] max-w-[25vw] 
+                    text-4xl p-8 
+                    bg-off-blue-200 text-dark-blue-900 
+                    rounded-4xl 
+                    max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
+
+            <form
+                className="flex flex-col items-center gap-8 w-full"
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <div className='flex flex-col justify-center items-center gap-2'>
                     <img
                         src="https://picsum.photos/2000.webp"
@@ -237,12 +246,12 @@ const LeftSideBar = (props) => {
                     disabled={isSubmitting}
                     className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
                 />}
+                {!isDirty && <div>
+                    <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
+                        Logout
+                    </button></a>
+                </div>}
             </form>
-            {!isDirty && <div>
-                <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
-                    Logout
-                </button></a>
-            </div>}
         </div>
     )
 }
