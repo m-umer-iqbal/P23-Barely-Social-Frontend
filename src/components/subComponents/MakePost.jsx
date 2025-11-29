@@ -78,8 +78,11 @@ const MakePost = (props) => {
 
             <div className='flex justify-between items-center'>
                 <a href="#">
-                    <button className='flex bg-off-blue-200 text-dark-blue-900 rounded-4xl px-3 py-2 font-semibold cursor-pointer'>
-                        <img src="/src/assets/image-upload-icon.svg" alt="Image-Upload-Icon" />
+                    <button className='flex gap-2 rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'>
+                        <img
+                            src="/src/assets/image-upload-icon.svg"
+                            alt="Image-Upload-Icon"
+                            className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />
                         <span>Image</span>
                     </button>
                 </a>
@@ -91,10 +94,13 @@ const MakePost = (props) => {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className='flex justify-center items-center bg-off-blue-200 text-dark-blue-900 rounded-4xl px-3 py-2 font-semibold cursor-pointer'
+                    className='flex gap-1 justify-center items-center rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'
                 >
-                    {!isSubmitting && <img src="/src/assets/post-icon.svg" alt="Post" />}
-                    {isSubmitting ? "Posting..." : "Post"}
+                    {!isSubmitting && <img
+                        src="/src/assets/post-icon.svg"
+                        alt="Post"
+                        className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />}
+                    <span>{isSubmitting ? "Posting..." : "Post"}</span>
                 </button>
             </div>
         </form >
