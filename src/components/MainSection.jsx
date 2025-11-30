@@ -28,12 +28,21 @@ const MainSection = () => {
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-8 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
             <MakePost />
             <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0'>
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
+                {posts.map((post) => {
+                    return (<Post
+                        key={post._id}
+                        fullname={post.author.fullname}
+                        // username={post.author.username}
+                        content={post.content}
+                        likes={post.likes.length}
+                        dislikes={post.dislikes.length}
+                        createdAt={new Date(post.createdAt).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        })}
+                    />)
+                })}
             </div>
         </div>
 

@@ -10,14 +10,15 @@ const Post = (props) => {
                     className='min-w-14 max-w-14 rounded-[100%]'
                 />
                 <div className='flex flex-col'>
-                    <p>Display Name</p>
-                    <p className='text-sm'>Date</p>
+                    {/* <p>{props.fullname} <span>@{props.username}</span></p> */}
+                    <p>{props.fullname}</p>
+                    <p className='text-sm'>{props.createdAt}</p>
                 </div>
             </div>
-            <div>Content of the Post</div>
+            <div>{props.content}</div>
             <div className='flex justify-around gap-2 font-semibold border-t-2 border-off-blue-200 pt-2'>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>
-                    <span className='text-lg'>0 Likes</span>
+                    <span className='text-lg'>{props.likes}</span>
                     <button className='flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'>
                         <img
                             src="/src/assets/like-icon.svg"
@@ -28,7 +29,7 @@ const Post = (props) => {
                     </button>
                 </div>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>
-                    <span className='text-lg'>0 Dislikes</span>
+                    <span className='text-lg'>{props.dislikes}</span>
                     <button className='flex gap-2 justify-center py-2 cursor-pointer min-w-full rounded-4xl border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'>
                         <img
                             src="/src/assets/dislike-icon.svg"
