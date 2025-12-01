@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form'
-import { idContext } from '../../context/context';
+import { idContext } from '../../context/context.js';
 import { useNavigate } from "react-router-dom";
 
 const MakePost = (props) => {
