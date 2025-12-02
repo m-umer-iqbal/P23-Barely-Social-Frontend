@@ -41,6 +41,7 @@ const MainSection = () => {
                 }).map((post) => {
                     return (<Post
                         key={post._id}
+                        id={post._id}
                         fullname={post.author.fullname}
                         // username={post.author.username}
                         content={post.content}
