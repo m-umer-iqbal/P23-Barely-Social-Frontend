@@ -4,6 +4,7 @@ import Post from './subComponents/Post'
 import FollowedAndUnfollowedNavbar from "./subComponents/FollowedAndUnfollowedNavbar"
 
 const MainSection = () => {
+    const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
     const [category, setCategory] = useState("followed")
 
@@ -29,11 +30,11 @@ const MainSection = () => {
             }
         };
         fetchPosts();
-    }, [category])
+    }, [category, postMade])
 
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
-            <MakePost />
+            <MakePost setPostMade={setPostMade} />
             <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0 relative'>
                 <FollowedAndUnfollowedNavbar setCategory={setCategory} />
                 {[...posts].sort((o, n) => {

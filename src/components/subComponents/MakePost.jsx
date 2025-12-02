@@ -39,6 +39,7 @@ const MakePost = (props) => {
             if (data.success) {
                 alert(data.message)
                 reset();
+                props.setPostMade(true)
                 navigate("/home")
             } else {
                 alert(data.message)
