@@ -46,8 +46,8 @@ const MainSection = () => {
                         fullname={post.author.fullname}
                         // username={post.author.username}
                         content={post.content}
-                        likes={post.likes.length}
-                        dislikes={post.dislikes.length}
+                        likes={post.likes}
+                        dislikes={post.dislikes}
                         createdAt={new Date(post.createdAt).toLocaleDateString("en-GB", {
                             day: "numeric",
                             month: "long",
