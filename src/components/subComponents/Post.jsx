@@ -91,7 +91,7 @@ const Post = (props) => {
 
                     <button
                         onClick={handleLike}
-                        className={`flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
+                        className={`group flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
                          ${reacted === "like" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
                     >
                         <img
@@ -110,7 +110,7 @@ const Post = (props) => {
 
                     <button
                         onClick={handleDislike}
-                        className={`flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
+                        className={`group flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
                          ${reacted === "dislike" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
                     >
                         <img
