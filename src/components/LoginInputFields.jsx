@@ -32,6 +32,7 @@ const LoginInputFields = () => {
             }
         } catch (error) {
             console.error('Login error:', error);
+            reset();
             alert("Login failed");
         }
     }
