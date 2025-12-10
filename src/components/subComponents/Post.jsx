@@ -14,7 +14,7 @@ const Post = (props) => {
 
             try {
                 const response = await fetch(
-                    `http://localhost:3000/post/update?id=${props.id}&reacted=${reacted}&count=${reacted === "like" ? likesCount : dislikesCount}`,
+                    `http://localhost:3000/post/update?id=${props.id}&reacted=${reacted}&userId=${props.userId}`,
                     {
                         method: "GET",
                         credentials: "include"
@@ -24,10 +24,10 @@ const Post = (props) => {
                 const data = await response.json();
 
                 if (!data.success) {
-                    console.error("Update failed:", data.message);
+                    alert("Update failed:", data.message);
                 }
             } catch (error) {
-                console.error("Error updating like/dislike:", error);
+                alert("Error updating like/dislike:", error);
             }
         };
 

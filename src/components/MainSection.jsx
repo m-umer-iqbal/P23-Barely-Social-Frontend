@@ -19,7 +19,6 @@ const MainSection = () => {
                 const data = await response.json();
 
                 if (data.success) {
-                    console.log(data.posts)
                     console.log(category)
                     setPosts(data.posts);
                 } else {
@@ -43,11 +42,12 @@ const MainSection = () => {
                     return (<Post
                         key={post._id}
                         id={post._id}
+                        userId={post.author._id}
                         fullname={post.author.fullname}
                         // username={post.author.username}
                         content={post.content}
-                        likes={post.likes}
-                        dislikes={post.dislikes}
+                        likes={post.likes.length}
+                        dislikes={post.dislikes.length}
                         createdAt={new Date(post.createdAt).toLocaleDateString("en-GB", {
                             day: "numeric",
                             month: "long",
