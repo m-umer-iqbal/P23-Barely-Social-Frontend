@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
-import FollowedAndUnfollowedNavbar from "./subComponents/FollowedAndUnfollowedNavbar"
+import ToggleTabs from "./subComponents/ToggleTabs"
 
 const MainSection = () => {
     const [postMade, setPostMade] = useState(false)
@@ -33,9 +33,20 @@ const MainSection = () => {
 
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
+
             <MakePost postMade={postMade} setPostMade={setPostMade} />
+
             <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0 relative'>
-                <FollowedAndUnfollowedNavbar setCategory={setCategory} />
+
+                <ToggleTabs
+                    options={[
+                        { label: "Followed", value: "followed" },
+                        { label: "Not Followed", value: "notFollowed" }
+                    ]}
+                    active={category}
+                    setActive={setCategory}
+                />
+
                 {[...posts].sort((o, n) => {
                     return (new Date(n.createdAt) - new Date(o.createdAt))
                 }).map((post) => {
