@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { idContext } from '../../context/context.js'
+import ProfilePicture from "./ProfilePicture.jsx";
 const Post = (props) => {
     const userId = useContext(idContext)
     const [likesCount, setLikesCount] = useState(Number(props.likes.length));
@@ -58,11 +59,7 @@ const Post = (props) => {
     return (
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
             <div className='flex gap-4'>
-                <img
-                    src="https://picsum.photos/2000.webp"
-                    alt="DP"
-                    className='min-w-14 max-w-14 rounded-[100%]'
-                />
+                <ProfilePicture />
                 <div className='flex flex-col'>
                     <p>{props.fullname}</p>
                     <p className='text-sm'>{props.createdAt}</p>
