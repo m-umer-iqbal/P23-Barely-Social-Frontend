@@ -55,9 +55,6 @@ const Home = () => {
                 <LeftSideBar fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
                 <MainSection />
                 <RightSideBar />
-                {/* <h1 className="text-5xl min-w-[60vw] bg-white">
-                This is home of the barely social app for "{user?.fullname}" and their username is "{user?.username}" and email is "{user?.email}". Thank You!
-            </h1> */}
             </div>
         </idContext.Provider>
     );
