@@ -1,20 +1,34 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useContext } from 'react';
+import { idContext } from '../../context/context.js'
 const Post = (props) => {
+    const userId = useContext(idContext)
+    const [likesCount, setLikesCount] = useState(Number(props.likes.length));
+    const [dislikesCount, setDislikesCount] = useState(Number(props.dislikes.length));
+
+    useEffect(() => {
+        setLikesCount(Number(props.likes.length));
+        setDislikesCount(Number(props.dislikes.length));
+    }, [props.likes, props.dislikes]);
+
     const [reacted, setReacted] = useState(null);
 
-    // Ensure numbers, not strings
-    const [likesCount, setLikesCount] = useState(Number(props.likes) || 0)
-    const [dislikesCount, setDislikesCount] = useState(Number(props.dislikes) || 0)
+    useEffect(() => {
+        if (props.likes.includes(userId)) {
+            setReacted("like");
+        } else if (props.dislikes.includes(userId)) {
+            setReacted("dislike");
+        } else {
+            setReacted(null);
+        }
+    }, [props.likes, props.dislikes, userId]);
 
     // 🔥 Call backend when likes/dislikes change
     useEffect(() => {
         const updateLikesAndDislikesCount = async () => {
-            if (!reacted) return; // do nothing if no reaction
 
             try {
                 const response = await fetch(
-                    `http://localhost:3000/post/update?id=${props.id}&reacted=${reacted}&userId=${props.userId}`,
+                    `http://localhost:3000/post/update?id=${props.id}&reacted=${reacted}&userId=${userId}`,
                     {
                         method: "GET",
                         credentials: "include"
@@ -32,7 +46,7 @@ const Post = (props) => {
         };
 
         updateLikesAndDislikesCount();
-    }, [likesCount, dislikesCount]);
+    }, [reacted]);
 
     const handleLike = () => {
         if (reacted === "like") {

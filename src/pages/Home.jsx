@@ -28,10 +28,7 @@ const Home = () => {
                     credentials: "include" // This is correct
                 });
 
-                console.log("Response status:", response.status);
-
                 let data = await response.json();
-                console.log("Auth response:", data);
 
                 if (data.authenticated) {
                     setUser(data.user);
