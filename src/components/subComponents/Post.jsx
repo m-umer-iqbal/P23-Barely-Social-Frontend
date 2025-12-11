@@ -22,66 +22,38 @@ const Post = (props) => {
         }
     }, [props.likes, props.dislikes, userId]);
 
-    // 🔥 Call backend when likes/dislikes change
-    useEffect(() => {
-        const updateLikesAndDislikesCount = async () => {
-
-            try {
-                const response = await fetch(
-                    `http://localhost:3000/post/update?id=${props.id}&reacted=${reacted}&userId=${userId}`,
-                    {
-                        method: "GET",
-                        credentials: "include"
-                    }
-                );
-
-                const data = await response.json();
-
-                if (!data.success) {
-                    alert("Update failed:", data.message);
-                }
-            } catch (error) {
-                alert("Error updating like/dislike:", error);
-            }
-        };
-
-        updateLikesAndDislikesCount();
-    }, [reacted]);
+    const handleReactionUpdate = async (newReaction) => {
+        try {
+            await fetch(
+                `http://localhost:3000/post/update?id=${props.id}&reacted=${newReaction}&userId=${userId}`,
+                { method: "GET", credentials: "include" }
+            );
+        } catch (e) {
+            console.log("Error updating reaction", e);
+        }
+    };
 
     const handleLike = () => {
-        if (reacted === "like") {
-            // Remove like
-            setReacted(null);
-            setLikesCount((prev) => prev - 1);
-            return;
-        }
+        let newReaction = reacted === "like" ? null : "like";
 
-        if (reacted === "dislike") {
-            // Switch dislike → like
-            setDislikesCount((prev) => prev - 1);
-        }
+        if (reacted === "like") setLikesCount(prev => prev - 1);
+        if (reacted === "dislike") setDislikesCount(prev => prev - 1);
+        if (newReaction === "like") setLikesCount(prev => prev + 1);
 
-        setReacted("like");
-        setLikesCount((prev) => prev + 1);
+        setReacted(newReaction);
+        handleReactionUpdate(newReaction);
     };
 
     const handleDislike = () => {
-        if (reacted === "dislike") {
-            // Remove dislike
-            setReacted(null);
-            setDislikesCount((prev) => prev - 1);
-            return;
-        }
+        let newReaction = reacted === "dislike" ? null : "dislike";
 
-        if (reacted === "like") {
-            // Switch like → dislike
-            setLikesCount((prev) => prev - 1);
-        }
+        if (reacted === "dislike") setDislikesCount(prev => prev - 1);
+        if (reacted === "like") setLikesCount(prev => prev - 1);
+        if (newReaction === "dislike") setDislikesCount(prev => prev + 1);
 
-        setReacted("dislike");
-        setDislikesCount((prev) => prev + 1);
+        setReacted(newReaction);
+        handleReactionUpdate(newReaction);
     };
-
 
     return (
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
