@@ -1,7 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import ProfilePicture from "./ProfilePicture"
+import { idContext } from '../../context/context.js';
 
 const UsersList = (props) => {
+    const userId = useContext(idContext)
+    const [following, setFollowing] = useState(null);
+
+    useEffect(() => {
+        if (props.btnText === "Remove as Friend") {
+            setFollowing("following");
+        } else {
+            setFollowing(null);
+        }
+    }, [props.btnText]);
+
+    const handleClick = async () => {
+
+        if (following === "following") {
+            // REMOVE
+            let response = await fetch(`http://localhost:3000/user/follow?userId=${userId}&id=${props.id}&following=remove`, {
+                method: "GET",
+                credentials: "include"
+            });
+            let data = await response.json();
+            if (data.success) {
+                setFollowing(null);
+                if (props.setRefresh) props.setRefresh(!props.refresh);
+            }
+            alert(data.message);
+            return;
+        }
+
+        // FOLLOW
+        let response = await fetch(`http://localhost:3000/user/follow?userId=${userId}&id=${props.id}&following=follow`, {
+            method: "GET",
+            credentials: "include"
+        });
+        let data = await response.json();
+        if (data.success) {
+            setFollowing("following");
+            if (props.setRefresh) props.setRefresh(!props.refresh);
+        }
+        alert(data.message);
+    };
+
     return (
         <div className="flex gap-4 border-b-4 pb-3">
             <div className="">
@@ -10,7 +52,11 @@ const UsersList = (props) => {
             <div className="flex flex-col font-semibold items-start gap-2">
                 <p className="text-2xl">{props.fullname}</p>
                 <p className="">{props.bio}</p>
-                <button className="border-2 border-dark-blue-900 rounded-4xl py-1.5 px-2 cursor-pointer hover:bg-dark-blue-900 hover:text-off-blue-200">Be Social</button>
+                <button
+                    onClick={handleClick}
+                    className={`rounded-4xl py-1.5 px-2 cursor-pointer border-2 border-dark-blue-900 ${following === "following" ? "hover:bg-red-500 hover:border-red-500 hover:text-white" : "hover:bg-dark-blue-900 hover:text-off-blue-200"}`}>
+                    {props.btnText}
+                </button>
             </div>
         </div>
     )
