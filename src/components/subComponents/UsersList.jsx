@@ -7,7 +7,7 @@ const UsersList = (props) => {
     const [following, setFollowing] = useState(null);
 
     useEffect(() => {
-        if (props.btnText === "Remove as Friend") {
+        if (props.btnText === "Be Barely Social") {
             setFollowing("following");
         } else {
             setFollowing(null);

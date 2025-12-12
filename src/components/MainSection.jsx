@@ -6,7 +6,7 @@ import ToggleTabs from "./subComponents/ToggleTabs"
 const MainSection = () => {
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
-    const [category, setCategory] = useState("followed")
+    const [category, setCategory] = useState("following")
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -40,8 +40,8 @@ const MainSection = () => {
 
                 <ToggleTabs
                     options={[
-                        { label: "Followed", value: "followed" },
-                        { label: "Not Followed", value: "notFollowed" }
+                        { label: "Strangers in Judgement", value: "following" },
+                        { label: "My Post", value: "myPosts" }
                     ]}
                     active={category}
                     setActive={setCategory}

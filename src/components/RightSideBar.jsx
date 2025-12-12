@@ -5,7 +5,7 @@ import { idContext } from '../context/context.js';
 
 const RightSideBar = () => {
     const userId = useContext(idContext)
-    const [active, setActive] = useState("findFriends");
+    const [active, setActive] = useState("follow");
     const [users, setUsers] = useState([])
     const [refresh, setRefresh] = useState(true);
 
@@ -34,8 +34,8 @@ const RightSideBar = () => {
 
             <ToggleTabs
                 options={[
-                    { label: "Friends", value: "friends" },
-                    { label: "Find Friends", value: "findFriends" }
+                    { label: "Strangers in Judgement", value: "following" },
+                    { label: "Strangers to Judge", value: "follow" }
                 ]}
                 active={active}
                 setActive={setActive}
@@ -43,7 +43,7 @@ const RightSideBar = () => {
 
             <div className="flex flex-col gap-4 max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
 
-                {active === "findFriends" && users
+                {active === "follow" && users
                     .filter((user) => { return ((user._id !== userId) && (!user.followers.includes(userId))) })
                     .map(user => (
                         <UsersList
@@ -58,7 +58,7 @@ const RightSideBar = () => {
                     ))
                 }
 
-                {active === "friends" && users
+                {active === "following" && users
                     .filter((user) => { return ((user._id !== userId) && (user.followers.includes(userId))) })
                     .map(user => (
                         <UsersList
@@ -66,7 +66,7 @@ const RightSideBar = () => {
                             id={user._id}
                             fullname={user.fullname}
                             bio={user.bio}
-                            btnText="Remove as Friend"
+                            btnText="Be Barely Social"
                             refresh={refresh}
                             setRefresh={setRefresh}
                         />
