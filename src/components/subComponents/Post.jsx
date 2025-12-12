@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { idContext } from '../../context/context.js'
+import { idContext } from '../../context/context'
 import ProfilePicture from "./ProfilePicture.jsx";
 const Post = (props) => {
     const userId = useContext(idContext)

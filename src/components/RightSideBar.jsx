@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import ToggleTabs from "./subComponents/ToggleTabs";
 import UsersList from "./subComponents/UsersList";
-import { idContext } from '../context/context.js';
+import { idContext } from '../context/context';
 
 const RightSideBar = () => {
     const userId = useContext(idContext)

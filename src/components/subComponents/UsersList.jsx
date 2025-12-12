@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import ProfilePicture from "./ProfilePicture"
-import { idContext } from '../../context/context.js';
+import { idContext } from '../../context/context';
 
 const UsersList = (props) => {
     const userId = useContext(idContext)
