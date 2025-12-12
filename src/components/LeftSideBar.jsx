@@ -230,12 +230,12 @@ const LeftSideBar = (props) => {
 
                 <div className='flex gap-16'>
                     <div className='flex flex-col justify-center items-center'>
-                        <p className='font-bold'>0</p>
+                        <p className='font-bold'>{props.followers}</p>
                         <p className='font-semibold text-2xl text-mid-blue-700'>Followers</p>
                     </div>
 
                     <div className='flex flex-col justify-center items-center'>
-                        <p className='font-bold'>0</p>
+                        <p className='font-bold'>{props.following}</p>
                         <p className='font-semibold text-2xl text-mid-blue-700'>Following</p>
                     </div>
                 </div>

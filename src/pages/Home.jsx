@@ -52,7 +52,14 @@ const Home = () => {
     return (
         <idContext.Provider value={user?.id || ""}>
             <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
-                <LeftSideBar fullname={user?.fullname || ""} username={user?.username || ""} bio={user?.bio || ""} email={user?.email || ""} />
+                <LeftSideBar
+                    fullname={user?.fullname || ""}
+                    username={user?.username || ""}
+                    bio={user?.bio || ""}
+                    email={user?.email || ""}
+                    followers={user?.followers.length || 0}
+                    following={user?.following.length || 0}
+                />
                 <MainSection />
                 <RightSideBar />
             </div>
