@@ -2,8 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
 import ToggleTabs from "./subComponents/ToggleTabs"
+import { idContext, globalRefreshContext } from "../context/context"
 
 const MainSection = () => {
+    const userId = useContext(idContext)
+    const { globalRefresh } = useContext(globalRefreshContext)
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
     const [category, setCategory] = useState("following")
@@ -11,25 +14,23 @@ const MainSection = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                console.log("Fetching posts for category:", category);
-                const response = await fetch("http://localhost:3000/post", {
+                const response = await fetch(`http://localhost:3000/post?userId=${userId}&category=${category}`, {
                     method: "GET",
                     credentials: "include"
                 });
                 const data = await response.json();
 
                 if (data.success) {
-                    console.log(category)
                     setPosts(data.posts);
                 } else {
                     alert("Error fetching posts.");
                 }
             } catch {
-                alert("Error occurred.");
+                alert("Error occurred in sending fetching posts request.");
             }
         };
         fetchPosts();
-    }, [category, postMade])
+    }, [category, postMade, globalRefresh])
 
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
