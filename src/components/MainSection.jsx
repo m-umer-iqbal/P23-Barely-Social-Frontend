@@ -65,6 +65,7 @@ const MainSection = () => {
                             month: "long",
                             year: "numeric",
                         })}
+                        category={category}
                     />)
                 })}
             </div>

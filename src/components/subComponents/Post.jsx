@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { idContext } from '../../context/context'
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { idContext, globalRefreshContext } from '../../context/context'
 import ProfilePicture from "./ProfilePicture.jsx";
+import { useForm } from 'react-hook-form'
+
 const Post = (props) => {
+    const { setGlobalRefresh } = useContext(globalRefreshContext)
     const userId = useContext(idContext)
     const [likesCount, setLikesCount] = useState(Number(props.likes.length));
     const [dislikesCount, setDislikesCount] = useState(Number(props.dislikes.length));
@@ -25,12 +28,18 @@ const Post = (props) => {
 
     const handleReactionUpdate = async (newReaction) => {
         try {
-            await fetch(
-                `http://localhost:3000/post/update?id=${props.id}&reacted=${newReaction}&userId=${userId}`,
-                { method: "GET", credentials: "include" }
-            );
-        } catch (e) {
-            console.log("Error updating reaction", e);
+            const response = await fetch(`http://localhost:3000/post/update?id=${props.id}&reacted=${newReaction}&userId=${userId}`, {
+                method: "GET",
+                credentials: "include"
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert(data.message)
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log("Error updating reaction", error);
         }
     };
 
@@ -56,17 +65,73 @@ const Post = (props) => {
         handleReactionUpdate(newReaction);
     };
 
+    const isMyPostCategory = props.category === "myPosts";
+
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/post/delete?id=${props.id}`, {
+                method: "GET",
+                credentials: "include"
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert(data.message)
+                setGlobalRefresh(prev => !prev)
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log("Error deleting post", error);
+            setGlobalRefresh(prev => !prev)
+        }
+    }
+
     return (
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
-            <div className='flex gap-4'>
-                <ProfilePicture />
-                <div className='flex flex-col'>
-                    <p>{props.fullname}</p>
-                    <p className='text-sm'>{props.createdAt}</p>
+            <div className="flex justify-between">
+                <div className='flex gap-4'>
+                    <ProfilePicture />
+                    <div className='flex flex-col'>
+                        <p>{props.fullname}</p>
+                        <p className='text-sm'>{props.createdAt}</p>
+                    </div>
+                </div>
+
+                <div>
+                    {isMyPostCategory && (
+                        <div className="flex gap-2">
+                            <div className="group p-2 rounded-full transition-all duration-300 hover:bg-off-blue-200 cursor-pointer">
+                                <img
+                                    src="/src/assets/edit-icon.svg"
+                                    alt="Edit-Icon"
+                                    className="filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] w-6 filter transition-all duration-300 group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
+                                    onClick={() => { }}
+                                />
+                            </div>
+
+                            <div className="group p-2 rounded-full transition-all duration-300 hover:bg-red-500 cursor-pointer">
+                                <img
+                                    src="/src/assets/delete-icon.svg"
+                                    alt="Delete-Icon"
+                                    className="filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] w-6 filter transition-all duration-300 group-hover:filter-[invert(100%)_sepia(98%)_saturate(0%)_hue-rotate(331deg)_brightness(103%)_contrast(102%)]"
+                                    onClick={() => {
+                                        if (confirm("Delete this post?")) {
+                                            handleDelete();
+                                        } else {
+                                            return;
+                                        }
+                                        // call delete API
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
-            <div>{props.content}</div>
+            <div>
+                {props.content}
+            </div>
 
             <div className='flex justify-around gap-2 font-semibold border-t-2 border-off-blue-200 pt-2'>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>

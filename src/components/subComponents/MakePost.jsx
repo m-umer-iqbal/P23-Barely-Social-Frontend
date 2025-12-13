@@ -16,8 +16,8 @@ const MakePost = (props) => {
         formState: { errors, isSubmitting },
     } = useForm({
         defaultValues: {
-            content: ""
-        },
+            content: props.content ? props.content : ""
+        }
     });
 
     const contentValue = watch("content")

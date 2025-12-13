@@ -132,14 +132,14 @@ const LeftSideBar = (props) => {
                             maxLength={20} // Add max length for character counting
                         />
                         {isNameEditable ? (
-                            <div className='absolute bottom-2 -right-6 text-sm text-mid-blue-700'>
+                            <div className='absolute bottom-0.5 -right-6 text-sm text-mid-blue-700'>
                                 {(fullnameValue || '').length || 0}/20
                             </div>
                         ) : (
                             <img
                                 src="/src/assets/edit-icon.svg"
                                 alt="Edit-Icon"
-                                className={`text-[12px] fill-dark-blue-900 absolute bottom-2 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                                className={`filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)] absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${nameEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                                 onClick={() => {
                                     setIsNameEditable(true)
                                     setTimeout(() => {
@@ -175,14 +175,14 @@ const LeftSideBar = (props) => {
                             maxLength={75} // Add max length for character counting
                         />
                         {isBioEditable ? (
-                            <div className='absolute bottom-1 -right-6 text-sm text-mid-blue-700'>
+                            <div className='absolute bottom-0.5 -right-6 text-sm text-mid-blue-700'>
                                 {(bioValue || '').length || 0}/75
                             </div>
                         ) : (
                             <img
                                 src="/src/assets/edit-icon.svg"
                                 alt="Edit-Icon"
-                                className={`text-[12px] fill-dark-blue-900 absolute bottom-1 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                                className={`filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)] absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${bioEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                                 onClick={() => {
                                     setIsBioEditable(true)
                                     setTimeout(() => {
@@ -216,7 +216,7 @@ const LeftSideBar = (props) => {
                             <img
                                 src="/src/assets/edit-icon.svg"
                                 alt="Edit-Icon"
-                                className={`text-[12px] fill-dark-blue-900 absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                                className={`filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)] absolute bottom-0.5 -right-4 cursor-pointer transition-all duration-300 ease-in-out ${emailEdit ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                                 onClick={() => {
                                     setIsEmailEditable(true)
                                     setTimeout(() => {
