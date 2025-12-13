@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../components/Logo"
 import LeftSideBar from '../components/LeftSideBar';
 import MainSection from '../components/MainSection';
 import RightSideBar from '../components/RightSideBar';
 import { idContext } from "../context/context"
-import { GlobalRefreshContextUpdate } from "../context/context"
+import { globalRefreshContext } from "../context/context"
 
 const Home = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const { globalRefresh } = useContext(globalRefreshContext)
 
     useEffect(() => {
         checkAuth();
@@ -19,7 +20,7 @@ const Home = () => {
         if (window.location.hash === "#_=_") {
             window.history.replaceState(null, null, window.location.pathname);
         }
-    }, []);
+    }, [globalRefresh]);
 
     const checkAuth = async () => {
         setTimeout(async () => {
@@ -51,22 +52,20 @@ const Home = () => {
     }
 
     return (
-        <GlobalRefreshContextUpdate>
-            <idContext.Provider value={user?.id || ""}>
-                <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
-                    <LeftSideBar
-                        fullname={user?.fullname || ""}
-                        username={user?.username || ""}
-                        bio={user?.bio || ""}
-                        email={user?.email || ""}
-                        followers={user?.followers.length || 0}
-                        following={user?.following.length || 0}
-                    />
-                    <MainSection />
-                    <RightSideBar />
-                </div>
-            </idContext.Provider>
-        </GlobalRefreshContextUpdate>
+        <idContext.Provider value={user?.id || ""}>
+            <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
+                <LeftSideBar
+                    fullname={user?.fullname || ""}
+                    username={user?.username || ""}
+                    bio={user?.bio || ""}
+                    email={user?.email || ""}
+                    followers={user?.followers.length || 0}
+                    following={user?.following.length || 0}
+                />
+                <MainSection />
+                <RightSideBar />
+            </div>
+        </idContext.Provider>
     );
 }
 

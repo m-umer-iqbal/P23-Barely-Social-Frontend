@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Logo from './components/Logo'
 import { createBrowserRouter, RouterProvider } from "react-router"
+import { GlobalRefreshContextUpdate } from "./context/context"
 
 function App() {
   const router = createBrowserRouter([
@@ -25,9 +26,11 @@ function App() {
     }
   ])
   return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <GlobalRefreshContextUpdate>
+      <div>
+        <RouterProvider router={router} />
+      </div>
+    </GlobalRefreshContextUpdate>
   )
 }
 

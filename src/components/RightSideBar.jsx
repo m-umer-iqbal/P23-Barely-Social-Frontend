@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import ToggleTabs from "./subComponents/ToggleTabs";
 import UsersList from "./subComponents/UsersList";
 import { idContext } from '../context/context';
+import { globalRefreshContext } from "../context/context"
 
 const RightSideBar = () => {
     const userId = useContext(idContext)
     const [active, setActive] = useState("follow");
     const [users, setUsers] = useState([])
-    const [refresh, setRefresh] = useState(true);
+    const { globalRefresh } = useContext(globalRefreshContext)
 
     useEffect(() => {
         const fetchProfiles = async () => {
@@ -27,7 +28,7 @@ const RightSideBar = () => {
             }
         }
         fetchProfiles()
-    }, [refresh])
+    }, [globalRefresh])
 
     return (
         <div className="flex flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen">
@@ -52,8 +53,6 @@ const RightSideBar = () => {
                             fullname={user.fullname}
                             bio={user.bio}
                             btnText="Be Social"
-                            refresh={refresh}
-                            setRefresh={setRefresh}
                         />
                     ))
                 }
@@ -67,8 +66,6 @@ const RightSideBar = () => {
                             fullname={user.fullname}
                             bio={user.bio}
                             btnText="Be Barely Social"
-                            refresh={refresh}
-                            setRefresh={setRefresh}
                         />
                     ))
                 }

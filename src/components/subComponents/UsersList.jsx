@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import ProfilePicture from "./ProfilePicture"
-import { idContext } from '../../context/context';
+import { idContext, globalRefreshContext } from '../../context/context';
 
 const UsersList = (props) => {
     const userId = useContext(idContext)
+    const { globalRefresh, setGlobalRefresh } = useContext(globalRefreshContext)
     const [following, setFollowing] = useState(null);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const UsersList = (props) => {
             let data = await response.json();
             if (data.success) {
                 setFollowing(null);
-                if (props.setRefresh) props.setRefresh(!props.refresh);
+                setGlobalRefresh(prev => !prev)
             }
             alert(data.message);
             return;
@@ -39,13 +40,13 @@ const UsersList = (props) => {
         let data = await response.json();
         if (data.success) {
             setFollowing("following");
-            if (props.setRefresh) props.setRefresh(!props.refresh);
+            setGlobalRefresh(prev => !prev)
         }
         alert(data.message);
     };
 
     return (
-        <div className="flex gap-4 border-b-4 pb-3">
+        <div className="flex gap-4 border-b-4 pb-3 last:border-b-0">
             <div className="">
                 <ProfilePicture />
             </div>
