@@ -13,3 +13,29 @@ export const GlobalRefreshContextUpdate = ({ children }) => {
         </globalRefreshContext.Provider>
     );
 };
+
+export const isPostContentEditableContext = createContext();
+
+export const IsPostContentEditableContextUpdate = ({ children }) => {
+    const [isPostContentEditable, setIsPostContentEditable] = useState(false)
+
+    return (
+        <isPostContentEditableContext.Provider value={{ isPostContentEditable, setIsPostContentEditable }}>
+            {children}
+        </isPostContentEditableContext.Provider>
+    );
+};
+
+export const editPostContext = createContext();
+
+export const EditPostContextUpdate = ({ children }) => {
+    const [postToEdit, setPostToEdit] = useState({
+        inEditing: false
+    });
+
+    return (
+        <editPostContext.Provider value={{ postToEdit, setPostToEdit }}>
+            {children}
+        </editPostContext.Provider>
+    );
+};

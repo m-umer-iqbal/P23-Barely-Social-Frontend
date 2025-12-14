@@ -4,8 +4,7 @@ import Logo from "../components/Logo"
 import LeftSideBar from '../components/LeftSideBar';
 import MainSection from '../components/MainSection';
 import RightSideBar from '../components/RightSideBar';
-import { idContext } from "../context/context"
-import { globalRefreshContext } from "../context/context"
+import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate } from "../context/context"
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -61,7 +60,11 @@ const Home = () => {
                     followers={user?.followers.length || 0}
                     following={user?.following.length || 0}
                 />
-                <MainSection />
+                <IsPostContentEditableContextUpdate>
+                    <EditPostContextUpdate>
+                        <MainSection />
+                    </EditPostContextUpdate>
+                </IsPostContentEditableContextUpdate>
                 <RightSideBar />
             </div>
         </idContext.Provider>

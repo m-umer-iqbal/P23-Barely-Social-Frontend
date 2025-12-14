@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from 'react'
 import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
 import ToggleTabs from "./subComponents/ToggleTabs"
-import { idContext, globalRefreshContext } from "../context/context"
+import { idContext, globalRefreshContext, editPostContext } from "../context/context"
 
 const MainSection = () => {
     const userId = useContext(idContext)
     const { globalRefresh } = useContext(globalRefreshContext)
+    const { postToEdit, setPostToEdit } = useContext(editPostContext)
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
     const [category, setCategory] = useState("following")
@@ -35,7 +36,7 @@ const MainSection = () => {
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
 
-            <MakePost postMade={postMade} setPostMade={setPostMade} />
+            <MakePost postMade={postMade} setPostMade={setPostMade} update={postToEdit.inEditing} postId={postToEdit.postId} content={postToEdit.inEditing ? postToEdit.content : ""} />
 
             <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0 relative'>
 
