@@ -40,7 +40,7 @@ const Post = (props) => {
                 alert(data.message)
             }
         } catch (error) {
-            console.log("Error updating reaction", error);
+            alert("Error updating reaction", error);
         }
     };
 
@@ -82,7 +82,6 @@ const Post = (props) => {
                 alert(data.message)
             }
         } catch (error) {
-            console.log("Error deleting post", error);
             setGlobalRefresh(prev => !prev)
         }
     }

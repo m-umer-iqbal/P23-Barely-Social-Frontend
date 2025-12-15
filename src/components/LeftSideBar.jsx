@@ -9,6 +9,42 @@ const LeftSideBar = (props) => {
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
     const id = useContext(idContext)
 
+    // Add state for profile picture
+    const [profilePicture, setProfilePicture] = useState(null)
+    const [previewImage, setPreviewImage] = useState(props.profilePicture || "https://picsum.photos/2000.webp")
+    const [isImageChanged, setIsImageChanged] = useState(false)
+
+    // Handle profile picture upload
+    const handleProfilePictureChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file')
+                return
+            }
+
+            // Check file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size should be less than 5MB')
+                return
+            }
+
+            setProfilePicture(file)
+            setIsImageChanged(true)
+
+            // Create preview
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setPreviewImage(reader.result)
+            }
+            reader.readAsDataURL(file)
+
+            // Show update button
+            setShowUpdateBtn(true)
+        }
+    }
+
     const {
         register,
         handleSubmit,
@@ -21,7 +57,8 @@ const LeftSideBar = (props) => {
             id: id,
             fullname: props.fullname,
             bio: props.bio,
-            email: props.email
+            email: props.email,
+            profilePicture: props.profilePicture
         },
     })
 
@@ -40,18 +77,29 @@ const LeftSideBar = (props) => {
 
     const onSubmit = async (formdata) => {
         try {
-            console.log(formdata)
+            const newFormData = new FormData()
+
+            newFormData.append("fullname", formdata.fullname)
+            newFormData.append("email", formdata.email)
+            newFormData.append("bio", formdata.bio)
+
+            if (profilePicture) {
+                newFormData.append("profilePicture", profilePicture) // MUST match multer
+            }
+
             let response = await fetch(`http://localhost:3000/update/${id}`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 credentials: "include",
-                body: JSON.stringify(formdata),
+                body: newFormData
             })
             let data = await response.json();
             if (data.success) {
                 alert(data.message)
+                // Update the preview with new URL if available
+                if (data.user.profilePicture) {
+                    setPreviewImage(data.user.profilePicture)
+                }
+                setIsImageChanged(false)
                 reset(formdata);
                 setShowUpdateBtn(false); // Hide after successful update
                 navigate("/home")
@@ -83,6 +131,7 @@ const LeftSideBar = (props) => {
     const fullnameInputRef = useRef(null)
     const bioInputRef = useRef(null)
     const emailInputRef = useRef(null)
+    const fileInputRef = useRef(null)
 
     useEffect(() => {
         // Manually register the fields
@@ -93,10 +142,15 @@ const LeftSideBar = (props) => {
 
     // Reset the button when user starts editing again
     useEffect(() => {
-        if (isDirty) {
+        if (isDirty || isImageChanged) {
             setShowUpdateBtn(true);
         }
-    }, [isDirty]);
+    }, [isDirty, isImageChanged]);
+
+    // Function to trigger file input click
+    const triggerFileInput = () => {
+        fileInputRef.current.click()
+    }
 
     return (
         <div className="flex flex-col items-center 
@@ -111,11 +165,39 @@ const LeftSideBar = (props) => {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className='flex flex-col justify-center items-center gap-2'>
-                    <img
-                        src="https://picsum.photos/2000.webp"
-                        alt="DP"
-                        className='w-60 rounded-[100%] border-8 border-dark-blue-900'
-                    />
+                    {/* Profile Picture Container */}
+                    <div className="relative">
+                        <img
+                            src={previewImage}
+                            alt="DP"
+                            className='w-60 h-60 object-cover rounded-[100%] border-8 border-dark-blue-900 cursor-pointer hover:opacity-90 transition-opacity'
+                            onClick={triggerFileInput}
+                        />
+
+                        {/* Edit Overlay */}
+                        <div
+                            className="absolute inset-0 bg-black bg-opacity-50 rounded-[100%] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                            onClick={triggerFileInput}
+                        >
+                            <span className="text-white text-2xl font-semibold">Change Photo</span>
+                        </div>
+
+                        {/* Hidden file input */}
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            accept="image/*"
+                            className="hidden"
+                            onChange={handleProfilePictureChange}
+                        />
+                    </div>
+
+                    {/* File info */}
+                    {profilePicture && (
+                        <div className="text-sm text-mid-blue-700 mt-2">
+                            Selected: {profilePicture.name} ({(profilePicture.size / 1024).toFixed(1)} KB)
+                        </div>
+                    )}
                     <div className='flex justify-center items-baseline space-x-4 relative group'
                         onMouseOver={() => { setNameEdit(true) }}
                         onMouseOut={() => { setNameEdit(false) }}>
@@ -240,14 +322,14 @@ const LeftSideBar = (props) => {
                     </div>
                 </div>
 
-                {(isDirty && showUpdateBtn) && <input
+                {((isDirty || isImageChanged) && showUpdateBtn) && <input
                     type='submit'
                     value={isSubmitting ? "Processing..." : "Update"}
                     disabled={isSubmitting}
                     className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
                 />}
             </form>
-            {!isDirty && <div>
+            {!isDirty && !isImageChanged && <div>
                 <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-12 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
                     Logout
                 </button></a>

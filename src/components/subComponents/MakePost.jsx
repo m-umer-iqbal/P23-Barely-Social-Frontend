@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const MakePost = (props) => {
     const userId = useContext(idContext)
-    const { postToEdit, setPostToEdit } = useContext(editPostContext)
+    const { setPostToEdit } = useContext(editPostContext)
     const { isPostContentEditable, setIsPostContentEditable } = useContext(isPostContentEditableContext)
     const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ const MakePost = (props) => {
 
     const onSubmit = async (formdata) => {
         try {
-            console.log(formdata)
             if (props.update) {
                 let response = await fetch(`http://localhost:3000/post/update-content?postId=${props.postId}&userId=${userId}`, {
                     method: "POST",

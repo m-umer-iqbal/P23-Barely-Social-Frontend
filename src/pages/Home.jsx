@@ -59,6 +59,7 @@ const Home = () => {
                     email={user?.email || ""}
                     followers={user?.followers.length || 0}
                     following={user?.following.length || 0}
+                    profilePicture={user.profilePicture}
                 />
                 <IsPostContentEditableContextUpdate>
                     <EditPostContextUpdate>
