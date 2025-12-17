@@ -121,6 +121,7 @@ const LeftSideBar = (props) => {
     const [nameEdit, setNameEdit] = useState(false)
     const [bioEdit, setBioEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
+    const [fileEdit, setFileEdit] = useState(false)
 
     // Is in editing mode or not
     const [isNameEditable, setIsNameEditable] = useState(false)
@@ -165,21 +166,26 @@ const LeftSideBar = (props) => {
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className='flex flex-col justify-center items-center gap-2'>
-                    {/* Profile Picture Container */}
-                    <div className="relative">
+                    <div className="relative group">
+                        {/* Image */}
                         <img
                             src={previewImage}
                             alt="DP"
-                            className='w-60 h-60 object-cover rounded-[100%] border-8 border-dark-blue-900 cursor-pointer hover:opacity-90 transition-opacity'
+                            className="w-60 h-60 object-cover rounded-full border-8 border-dark-blue-900 cursor-pointer
+               transition-opacity group-hover:opacity-60"
                             onClick={triggerFileInput}
                         />
 
-                        {/* Edit Overlay */}
+                        {/* Hover overlay */}
                         <div
-                            className="absolute inset-0 bg-black bg-opacity-50 rounded-[100%] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                             onClick={triggerFileInput}
+                            className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-full opacity-0 group-hover:opacity-50 transition-opacity cursor-pointer"
                         >
-                            <span className="text-white text-2xl font-semibold">Change Photo</span>
+                            <img
+                                src="/src/assets/edit-icon.svg"
+                                alt="Edit"
+                                className="filter"
+                            />
                         </div>
 
                         {/* Hidden file input */}
