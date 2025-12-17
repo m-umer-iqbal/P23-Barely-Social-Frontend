@@ -4,7 +4,7 @@ import { idContext, globalRefreshContext } from '../../context/context';
 
 const UsersList = (props) => {
     const userId = useContext(idContext)
-    const { globalRefresh, setGlobalRefresh } = useContext(globalRefreshContext)
+    const { setGlobalRefresh } = useContext(globalRefreshContext)
     const [following, setFollowing] = useState(null);
 
     useEffect(() => {
@@ -48,7 +48,7 @@ const UsersList = (props) => {
     return (
         <div className="flex gap-4 border-b-4 pb-3 last:border-b-0">
             <div className="">
-                <ProfilePicture />
+                <ProfilePicture profilePicture={props.profilePicture} />
             </div>
             <div className="flex flex-col font-semibold items-start gap-2">
                 <p className="text-2xl">{props.fullname}</p>

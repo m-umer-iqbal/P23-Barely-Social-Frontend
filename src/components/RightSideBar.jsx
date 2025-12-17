@@ -53,6 +53,7 @@ const RightSideBar = () => {
                             fullname={user.fullname}
                             bio={user.bio}
                             btnText="Be Social"
+                            profilePicture={user.profilePicture}
                         />
                     ))
                 }
@@ -66,6 +67,7 @@ const RightSideBar = () => {
                             fullname={user.fullname}
                             bio={user.bio}
                             btnText="Be Barely Social"
+                            profilePicture={user.profilePicture}
                         />
                     ))
                 }

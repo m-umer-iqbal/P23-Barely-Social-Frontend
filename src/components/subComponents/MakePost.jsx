@@ -1,11 +1,13 @@
 import React from 'react'
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
-import { idContext, isPostContentEditableContext, editPostContext } from '../../context/context';
+import { idContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context';
 import { useNavigate } from "react-router-dom";
+import ProfilePicture from "./ProfilePicture";
 
 const MakePost = (props) => {
     const userId = useContext(idContext)
+    const userProfilePicture = useContext(profilePictureContext)
     const { setPostToEdit } = useContext(editPostContext)
     const { isPostContentEditable, setIsPostContentEditable } = useContext(isPostContentEditableContext)
     const navigate = useNavigate();
@@ -95,11 +97,7 @@ const MakePost = (props) => {
     return (
         <form className='static top-0 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 space-y-4' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex gap-4'>
-                <img
-                    src="https://picsum.photos/2000.webp"
-                    alt="DP"
-                    className='min-w-12 max-w-12 max-h-12 rounded-[100%]'
-                />
+                <ProfilePicture profilePicture={userProfilePicture} />
                 <textarea
                     className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
                     placeholder="Share your thoughts..."

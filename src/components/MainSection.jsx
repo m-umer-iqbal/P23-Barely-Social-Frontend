@@ -7,7 +7,7 @@ import { idContext, globalRefreshContext, editPostContext } from "../context/con
 const MainSection = () => {
     const userId = useContext(idContext)
     const { globalRefresh } = useContext(globalRefreshContext)
-    const { postToEdit, setPostToEdit } = useContext(editPostContext)
+    const { postToEdit } = useContext(editPostContext)
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
     const [category, setCategory] = useState("following")
@@ -23,6 +23,8 @@ const MainSection = () => {
 
                 if (data.success) {
                     setPosts(data.posts);
+                    // Debug: check whether posts include author profile pictures
+                    console.debug('Fetched posts (sample):', data.posts.map(p => ({ id: p._id, authorId: p.author?._id, authorHasProfilePicture: !!(p.author && p.author.profilePicture) })));
                 } else {
                     alert("Error fetching posts.");
                 }
@@ -66,6 +68,7 @@ const MainSection = () => {
                             month: "long",
                             year: "numeric",
                         })}
+                        profilePicture={post.author?.profilePicture || post.profilePicture}
                         category={category}
                     />)
                 })}

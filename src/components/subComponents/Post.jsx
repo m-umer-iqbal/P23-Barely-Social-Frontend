@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { idContext, globalRefreshContext, isPostContentEditableContext, editPostContext } from '../../context/context'
+import { idContext, globalRefreshContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context'
 import ProfilePicture from "./ProfilePicture.jsx";
 
 const Post = (props) => {
+    const userProfilePicture = useContext(profilePictureContext)
     const { setGlobalRefresh } = useContext(globalRefreshContext)
     const { setIsPostContentEditable } = useContext(isPostContentEditableContext)
     const { postToEdit, setPostToEdit } = useContext(editPostContext)
@@ -99,7 +100,7 @@ const Post = (props) => {
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
             <div className="flex justify-between">
                 <div className='flex gap-4'>
-                    <ProfilePicture />
+                    <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
                     <div className='flex flex-col'>
                         <p>{props.fullname}</p>
                         <p className='text-sm'>{props.createdAt}</p>

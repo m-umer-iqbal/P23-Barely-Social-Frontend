@@ -2,16 +2,17 @@ import React from 'react'
 import { useState, useRef, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { idContext } from '../context/context'
+import { idContext, globalRefreshContext } from '../context/context'
 
 const LeftSideBar = (props) => {
     const navigate = useNavigate();
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
     const id = useContext(idContext)
+    const { setGlobalRefresh } = useContext(globalRefreshContext)
 
     // Add state for profile picture
     const [profilePicture, setProfilePicture] = useState(null)
-    const [previewImage, setPreviewImage] = useState(props.profilePicture || "https://picsum.photos/2000.webp")
+    const [previewImage, setPreviewImage] = useState(props.profilePicture)
     const [isImageChanged, setIsImageChanged] = useState(false)
 
     // Handle profile picture upload
@@ -98,6 +99,7 @@ const LeftSideBar = (props) => {
                 // Update the preview with new URL if available
                 if (data.user.profilePicture) {
                     setPreviewImage(data.user.profilePicture)
+                    setGlobalRefresh(prev => !prev)
                 }
                 setIsImageChanged(false)
                 reset(formdata);
@@ -179,7 +181,7 @@ const LeftSideBar = (props) => {
                         {/* Hover overlay */}
                         <div
                             onClick={triggerFileInput}
-                            className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-full opacity-0 group-hover:opacity-50 transition-opacity cursor-pointer"
+                            className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-full opacity-0 group-hover:opacity-60 transition-opacity cursor-pointer"
                         >
                             <img
                                 src="/src/assets/edit-icon.svg"

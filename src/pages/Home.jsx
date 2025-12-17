@@ -4,7 +4,7 @@ import Logo from "../components/Logo"
 import LeftSideBar from '../components/LeftSideBar';
 import MainSection from '../components/MainSection';
 import RightSideBar from '../components/RightSideBar';
-import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate } from "../context/context"
+import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate, profilePictureContext } from "../context/context"
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -50,25 +50,27 @@ const Home = () => {
     }
 
     return (
-        <idContext.Provider value={user?.id || ""}>
-            <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
-                <LeftSideBar
-                    fullname={user?.fullname || ""}
-                    username={user?.username || ""}
-                    bio={user?.bio || ""}
-                    email={user?.email || ""}
-                    followers={user?.followers.length || 0}
-                    following={user?.following.length || 0}
-                    profilePicture={user.profilePicture}
-                />
-                <IsPostContentEditableContextUpdate>
-                    <EditPostContextUpdate>
-                        <MainSection />
-                    </EditPostContextUpdate>
-                </IsPostContentEditableContextUpdate>
-                <RightSideBar />
-            </div>
-        </idContext.Provider>
+        <profilePictureContext.Provider value={user?.profilePicture || "https://picsum.photos/2000.webp"}>
+            <idContext.Provider value={user?.id || ""}>
+                <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
+                    <LeftSideBar
+                        fullname={user?.fullname || ""}
+                        username={user?.username || ""}
+                        bio={user?.bio || ""}
+                        email={user?.email || ""}
+                        followers={user?.followers.length || 0}
+                        following={user?.following.length || 0}
+                        profilePicture={user?.profilePicture || "https://picsum.photos/2000.webp"}
+                    />
+                    <IsPostContentEditableContextUpdate>
+                        <EditPostContextUpdate>
+                            <MainSection />
+                        </EditPostContextUpdate>
+                    </IsPostContentEditableContextUpdate>
+                    <RightSideBar />
+                </div>
+            </idContext.Provider>
+        </profilePictureContext.Provider>
     );
 }
 
