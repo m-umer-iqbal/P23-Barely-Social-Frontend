@@ -10,7 +10,7 @@ const MainSection = () => {
     const { postToEdit } = useContext(editPostContext)
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
-    const [category, setCategory] = useState("following")
+    const [category, setCategory] = useState("allPosts")
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -23,8 +23,6 @@ const MainSection = () => {
 
                 if (data.success) {
                     setPosts(data.posts);
-                    // Debug: check whether posts include author profile pictures
-                    console.debug('Fetched posts (sample):', data.posts.map(p => ({ id: p._id, authorId: p.author?._id, authorHasProfilePicture: !!(p.author && p.author.profilePicture) })));
                 } else {
                     alert("Error fetching posts.");
                 }
