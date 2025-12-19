@@ -96,6 +96,16 @@ const Post = (props) => {
     // Check if this post is currently being edited
     const isCurrentlyEditing = postToEdit.inEditing && postToEdit.postId === props.id;
 
+    const formatDate = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        return isNaN(d) ? null : d.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
+    };
+
     return (
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
             <div className="flex justify-between">
@@ -103,7 +113,11 @@ const Post = (props) => {
                     <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
                     <div className='flex flex-col'>
                         <p>{props.fullname}</p>
-                        <p className='text-sm'>{props.createdAt}</p>
+                        <p className="text-sm">
+                            {props.updatedAt && props.updatedAt !== props.createdAt
+                                ? `Updated at: ${formatDate(props.updatedAt)}`
+                                : `Posted on: ${formatDate(props.createdAt)}`}
+                        </p>
                     </div>
                 </div>
 
@@ -127,7 +141,8 @@ const Post = (props) => {
                                             setPostToEdit({
                                                 inEditing: false,
                                                 postId: null,
-                                                content: ""
+                                                content: "",
+                                                image: null
                                             });
 
                                             // Small delay to ensure state updates before starting new edit
@@ -138,9 +153,7 @@ const Post = (props) => {
                                                     postId: props.id,
                                                     author: userId,
                                                     content: props.content,
-                                                    likes: [],
-                                                    dislikes: [],
-                                                    createdAt: new Date().toISOString()
+                                                    image: props.image
                                                 });
                                             }, 50);
                                         } else {
@@ -150,9 +163,7 @@ const Post = (props) => {
                                                 postId: props.id,
                                                 author: userId,
                                                 content: props.content,
-                                                likes: [],
-                                                dislikes: [],
-                                                createdAt: new Date().toISOString()
+                                                image: props.image
                                             });
                                         }
                                     }}
@@ -178,8 +189,9 @@ const Post = (props) => {
                 </div>
             </div>
 
-            <div>
-                {props.content}
+            <div className="flex flex-col gap-2">
+                <div>{props.content}</div>
+                {props.image && <div><img src={props.image} alt="Post" className="mt-2 rounded-4xl" /></div>}
             </div>
 
             <div className='flex justify-around gap-2 font-semibold border-t-2 border-off-blue-200 pt-2'>

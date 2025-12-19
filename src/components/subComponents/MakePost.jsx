@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext, useEffect } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { idContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context';
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,10 @@ const MakePost = (props) => {
     const { setPostToEdit } = useContext(editPostContext)
     const { isPostContentEditable, setIsPostContentEditable } = useContext(isPostContentEditableContext)
     const navigate = useNavigate();
+    // Add state for profile picture
+    const [postImage, setPostImage] = useState(null)
+
+    const fileInputRef = useRef(null)
 
     const {
         register,
@@ -26,16 +30,40 @@ const MakePost = (props) => {
 
     const contentValue = watch("content")
 
+    const handlePostImageUpload = (e) => {
+        e.preventDefault();
+        const file = e.target.files[0]
+        if (file) {
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file')
+                return
+            }
+
+            // Check file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size should be less than 5MB')
+                return
+            }
+            setPostImage(file)
+        }
+    }
+
     const onSubmit = async (formdata) => {
         try {
             if (props.update) {
+                const newFormData = new FormData()
+
+                newFormData.append("content", formdata.content)
+
+                if (postImage) {
+                    newFormData.append("image", postImage) // MUST match multer
+                }
+
                 let response = await fetch(`http://localhost:3000/post/update-content?postId=${props.postId}&userId=${userId}`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
                     credentials: "include",
-                    body: JSON.stringify({ content: formdata.content })
+                    body: newFormData
                 })
                 let data = await response.json();
                 if (data.success) {
@@ -45,25 +73,31 @@ const MakePost = (props) => {
                         postId: null,
                         content: ""
                     });
-                    reset({ content: "" });
+                    reset({ content: "", image: "" });
                     setIsPostContentEditable(false);
                     if (props.postMade) {
                         props.setPostMade(false)
                     } else {
                         props.setPostMade(true)
                     }
+                    setPostImage(null)
                     navigate("/home")
                 } else {
                     alert(data.message)
                 }
             } else {
+                const newFormData = new FormData()
+
+                newFormData.append("content", formdata.content)
+
+                if (postImage) {
+                    newFormData.append("image", postImage) // MUST match multer
+                }
+
                 let response = await fetch(`http://localhost:3000/post/${userId}`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
                     credentials: "include",
-                    body: JSON.stringify(formdata),
+                    body: newFormData
                 })
                 let data = await response.json();
                 if (data.success) {
@@ -74,6 +108,7 @@ const MakePost = (props) => {
                         props.setPostMade(true)
                     }
                     reset();
+                    setPostImage(null)
                     navigate("/home")
                 } else {
                     alert(data.message)
@@ -87,44 +122,76 @@ const MakePost = (props) => {
 
     useEffect(() => {
         if (props.update && props.content) {
-            reset({ content: props.content });
+            reset({ content: props.content, image: props.image });
         } else if (!props.update) {
-            reset({ content: "" });
+            reset({ content: "", image: null });
         }
     }, [props.update, props.content, reset]);
 
+    // Function to trigger file input click
+    const triggerFileInput = () => {
+        fileInputRef.current.click()
+    }
 
     return (
         <form className='static top-0 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 space-y-4' onSubmit={handleSubmit(onSubmit)}>
             <div className='flex gap-4'>
                 <ProfilePicture profilePicture={userProfilePicture} />
-                <textarea
-                    className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
-                    placeholder="Share your thoughts..."
-                    autoComplete='off'
-                    {...register("content", {
-                        required: "You can’t be Barely Social without writing anything 😏",
-                        maxLength: {
-                            value: 500,
-                            message: "Whoa there! That’s too social — max 500 characters 😅",
-                        }
-                    })}
-                    maxLength={500}
-                    onFocus={() => setIsPostContentEditable(true)}
-                    onBlur={() => setIsPostContentEditable(false)}
-                />
+                <div className="flex flex-col gap-2">
+                    <textarea
+                        className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
+                        placeholder="Share your thoughts..."
+                        autoComplete='off'
+                        {...register("content", {
+                            required: "You can’t be Barely Social without writing anything 😏",
+                            maxLength: {
+                                value: 500,
+                                message: "Whoa there! That’s too social — max 500 characters 😅",
+                            }
+                        })}
+                        maxLength={500}
+                        onFocus={() => setIsPostContentEditable(true)}
+                        onBlur={() => setIsPostContentEditable(false)}
+                    />
+                    <div>
+                        {postImage ? (
+                            <img
+                                src={URL.createObjectURL(postImage)}
+                                alt="Post"
+                                className="mt-2 rounded-4xl"
+                            />
+                        ) : props.image && !isSubmitting ? (
+                            <img
+                                src={props.image}
+                                alt="Existing post"
+                                className="mt-2 rounded-4xl"
+                            />
+                        ) : null}
+                    </div>
+                </div>
             </div>
 
             <div className='flex justify-between items-center'>
-                <a href="#">
-                    <button className='flex gap-2 rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'>
-                        <img
-                            src="/src/assets/image-upload-icon.svg"
-                            alt="Image-Upload-Icon"
-                            className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />
-                        <span>Image</span>
-                    </button>
-                </a>
+                <button
+                    type="button"
+                    className='flex gap-2 rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'
+                    onClick={triggerFileInput}
+                >
+                    <img
+                        src="/src/assets/image-upload-icon.svg"
+                        alt="Image-Upload-Icon"
+                        className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />
+                    <span>Image</span>
+                    {/* Hidden file input */}
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handlePostImageUpload}
+                    />
+                </button>
+
 
                 {errors.content ? (
                     <span className="text-red-500 font-semibold">
@@ -143,13 +210,15 @@ const MakePost = (props) => {
                         <button
                             type="button"
                             onClick={() => {
-                                reset({ content: "" });
+                                reset({ content: "", image: null });
                                 setPostToEdit({
                                     inEditing: false,
                                     postId: null,
-                                    content: ""
+                                    content: "",
+                                    image: null
                                 });
                                 setIsPostContentEditable(false);
+                                setPostImage(null);
                                 if (props.onEditCancel) {
                                     props.onEditCancel();
                                 }

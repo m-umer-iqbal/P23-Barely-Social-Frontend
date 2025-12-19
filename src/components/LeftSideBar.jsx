@@ -123,7 +123,6 @@ const LeftSideBar = (props) => {
     const [nameEdit, setNameEdit] = useState(false)
     const [bioEdit, setBioEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
-    const [fileEdit, setFileEdit] = useState(false)
 
     // Is in editing mode or not
     const [isNameEditable, setIsNameEditable] = useState(false)

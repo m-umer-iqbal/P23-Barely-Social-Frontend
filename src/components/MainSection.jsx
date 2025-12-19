@@ -63,11 +63,9 @@ const MainSection = () => {
                         content={post.content}
                         likes={post.likes}
                         dislikes={post.dislikes}
-                        createdAt={new Date(post.createdAt).toLocaleDateString("en-GB", {
-                            day: "numeric",
-                            month: "long",
-                            year: "numeric",
-                        })}
+                        image={post.image}
+                        createdAt={post.createdAt}
+                        updatedAt={post.updatedAt}
                         profilePicture={post.author?.profilePicture || post.profilePicture}
                         category={category}
                     />)
