@@ -40,6 +40,7 @@ const RightSideBar = () => {
                 ]}
                 active={active}
                 setActive={setActive}
+                minWidth={49}
             />
 
             <div className="flex flex-col gap-4 max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">

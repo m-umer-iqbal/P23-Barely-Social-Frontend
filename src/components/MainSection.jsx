@@ -44,11 +44,13 @@ const MainSection = () => {
 
                 <ToggleTabs
                     options={[
+                        { label: "Strangers", value: "allPosts" },
                         { label: "Strangers in Judgement", value: "following" },
                         { label: "My Post", value: "myPosts" }
                     ]}
                     active={category}
                     setActive={setCategory}
+                    minWidth={32}
                 />
 
                 {[...posts].sort((o, n) => {

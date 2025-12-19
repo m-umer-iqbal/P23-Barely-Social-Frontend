@@ -338,7 +338,7 @@ const LeftSideBar = (props) => {
                 />}
             </form>
             {!isDirty && !isImageChanged && <div>
-                <a href="http://localhost:3000/logout"><button className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-12 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer'>
+                <a href="http://localhost:3000/logout"><button className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-12 px-8 py-4 hover:bg-red-500 hover:border-red-500 hover:text-white cursor-pointer'>
                     Logout
                 </button></a>
             </div>}
