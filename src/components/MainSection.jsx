@@ -3,8 +3,10 @@ import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
 import ToggleTabs from "./subComponents/ToggleTabs"
 import { idContext, globalRefreshContext, editPostContext } from "../context/context"
+import Loading from "./Loading"
 
 const MainSection = () => {
+    const [loading, setLoading] = useState(true)
     const userId = useContext(idContext)
     const { globalRefresh } = useContext(globalRefreshContext)
     const { postToEdit } = useContext(editPostContext)
@@ -23,14 +25,17 @@ const MainSection = () => {
 
                 if (data.success) {
                     setPosts(data.posts);
+                    setLoading(false)
                 } else {
                     alert("Error fetching posts.");
+                    setLoading(false)
                 }
             } catch {
                 alert("Error occurred in sending fetching posts request.");
+                setLoading(false)
             }
         };
-        fetchPosts();
+        setTimeout(fetchPosts(), 3000)
     }, [category, postMade, globalRefresh])
 
     return (
@@ -50,8 +55,7 @@ const MainSection = () => {
                     setActive={setCategory}
                     minWidth={32}
                 />
-
-                {[...posts].sort((o, n) => {
+                {loading ? <Loading /> : <div className="space-y-4">{[...posts].sort((o, n) => {
                     return (new Date(n.createdAt) - new Date(o.createdAt))
                 }).map((post) => {
                     return (<Post
@@ -69,7 +73,7 @@ const MainSection = () => {
                         profilePicture={post.author?.profilePicture || post.profilePicture}
                         category={category}
                     />)
-                })}
+                })}</div>}
             </div>
         </div>
     )

@@ -61,7 +61,7 @@ const Logo = (props) => {
             )}
             {(props.slash === "false" && props.width === "100vw") && (
                 <p className="text-blue-400 text-4xl font-semibold animate-pulse mt-6">
-                    Loading… Because Being Social Takes Efforts...
+                    Loading... Because Being Social Takes Efforts...
                 </p>
             )}
         </div >

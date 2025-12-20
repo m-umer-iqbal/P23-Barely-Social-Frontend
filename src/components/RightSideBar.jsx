@@ -3,8 +3,10 @@ import ToggleTabs from "./subComponents/ToggleTabs";
 import UsersList from "./subComponents/UsersList";
 import { idContext } from '../context/context';
 import { globalRefreshContext } from "../context/context"
+import Loading from "./Loading";
 
 const RightSideBar = () => {
+    const [loading, setLoading] = useState(true);
     const userId = useContext(idContext)
     const [active, setActive] = useState("follow");
     const [users, setUsers] = useState([])
@@ -20,18 +22,21 @@ const RightSideBar = () => {
                 let data = await response.json();
                 if (data.success) {
                     setUsers(data.usersList);
+                    setLoading(false)
                 } else {
                     alert(data.message);
+                    setLoading(false)
                 }
             } catch (error) {
                 alert("Error in sending request for fetching users.")
+                setLoading(false)
             }
         }
-        fetchProfiles()
+        setTimeout(fetchProfiles(), 3000)
     }, [globalRefresh])
 
     return (
-        <div className="flex flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen">
+        <div div className="flex flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen" >
 
             <ToggleTabs
                 options={[
@@ -43,8 +48,7 @@ const RightSideBar = () => {
                 minWidth={49}
             />
 
-            <div className="flex flex-col gap-4 max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
-
+            {loading ? <Loading /> : <div className="flex flex-col gap-4 max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
                 {active === "follow" && users
                     .filter((user) => { return ((user._id !== userId) && (!user.followers.includes(userId))) })
                     .map(user => (
@@ -74,7 +78,7 @@ const RightSideBar = () => {
                         />
                     ))
                 }
-            </div>
+            </div>}
         </div>
     )
 }
