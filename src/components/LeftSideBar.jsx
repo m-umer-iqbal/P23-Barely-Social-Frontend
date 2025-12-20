@@ -61,6 +61,7 @@ const LeftSideBar = (props) => {
             email: props.email,
             profilePicture: props.profilePicture
         },
+        mode: "onChange"
     })
 
     // Manually update form values when inputs change
@@ -73,7 +74,7 @@ const LeftSideBar = (props) => {
     }
 
     const handleEmailChange = (e) => {
-        setValue("email", e.target.value, { shouldDirty: true })
+        setValue("email", e.target.value, { shouldValidate: true, shouldDirty: true })
     }
 
     const onSubmit = async (formdata) => {
@@ -284,19 +285,31 @@ const LeftSideBar = (props) => {
                     <div className='flex justify-center items-baseline space-x-4 relative group'
                         onMouseOver={() => { setEmailEdit(true) }}
                         onMouseOut={() => { setEmailEdit(false) }}>
-                        <input
-                            {...register("email")}
-                            type='text'
-                            value={emailValue}
-                            autoComplete='off'
-                            placeholder='Email Address'
-                            className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
-                            onChange={handleEmailChange}
-                            disabled={!isEmailEditable}
-                            ref={emailInputRef}
-                            onBlur={() => setIsEmailEditable(false)}
-                            maxLength={30} // Add max length for character counting
-                        />
+                        <div className="flex flex-col gap-2 justify-center items-center">
+
+                            <input
+                                {...register("email", {
+                                    required: "Email is required",
+                                    pattern: {
+                                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                        message: "Invalid email format"
+                                    }
+                                })}
+                                type='text'
+                                value={emailValue}
+                                autoComplete='off'
+                                placeholder='Email Address'
+                                className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
+                                onChange={handleEmailChange}
+                                disabled={!isEmailEditable}
+                                ref={emailInputRef}
+                                onBlur={() => setIsEmailEditable(false)}
+                                maxLength={30} // Add max length for character counting
+                            />
+                            {errors.email && (
+                                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                            )}
+                        </div>
                         {isEmailEditable ? (
                             <div className='absolute bottom-0.5 -right-6 text-sm text-mid-blue-700'>
                                 {(emailValue || '').length || 0}/30
@@ -333,7 +346,7 @@ const LeftSideBar = (props) => {
                     type='submit'
                     value={isSubmitting ? "Processing..." : "Update"}
                     disabled={isSubmitting}
-                    className='text-3xl bg-dark-blue-900 text-off-blue-200 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
+                    className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer  disabled:cursor-not-allowed'
                 />}
             </form>
             {!isDirty && !isImageChanged && <div>
