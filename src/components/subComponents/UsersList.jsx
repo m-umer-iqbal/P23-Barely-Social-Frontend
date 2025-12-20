@@ -51,7 +51,7 @@ const UsersList = (props) => {
                 <ProfilePicture profilePicture={props.profilePicture} />
             </div>
             <div className="flex flex-col font-semibold items-start gap-2">
-                <p className="text-2xl">{props.fullname}</p>
+                <p className="text-2xl">{props.fullname || "@" + props.username}</p>
                 <p className="">{props.bio}</p>
                 <button
                     onClick={handleClick}

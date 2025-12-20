@@ -59,7 +59,7 @@ const MainSection = () => {
                         id={post._id}
                         userId={post.author._id}
                         fullname={post.author.fullname}
-                        // username={post.author.username}
+                        username={post.author.username}
                         content={post.content}
                         likes={post.likes}
                         dislikes={post.dislikes}

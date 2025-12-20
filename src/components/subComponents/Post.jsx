@@ -112,7 +112,7 @@ const Post = (props) => {
                 <div className='flex gap-4'>
                     <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
                     <div className='flex flex-col'>
-                        <p>{props.fullname}</p>
+                        <p>{props.fullname || "@" + props.username}</p>
                         <p className="text-sm">
                             {props.updatedAt && props.updatedAt !== props.createdAt
                                 ? `Updated at: ${formatDate(props.updatedAt)}`
