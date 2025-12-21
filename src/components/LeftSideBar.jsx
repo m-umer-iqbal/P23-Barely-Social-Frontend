@@ -3,8 +3,10 @@ import { useState, useRef, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { idContext, globalRefreshContext } from '../context/context'
+import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
 
 const LeftSideBar = (props) => {
+    const [alertType, setAlertType] = useState(null) // 'success' | 'info' | 'warning' | 'error'
     const navigate = useNavigate();
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
     const id = useContext(idContext)
@@ -21,13 +23,13 @@ const LeftSideBar = (props) => {
         if (file) {
             // Check file type
             if (!file.type.startsWith('image/')) {
-                alert('Please select an image file')
+                setAlertType({ alert: 'warning', message: "Please select an image." })
                 return
             }
 
             // Check file size (5MB limit)
             if (file.size > 5 * 1024 * 1024) {
-                alert('File size should be less than 5MB')
+                setAlertType({ alert: 'warning', message: "File size should be less than 5MB" })
                 return
             }
 
@@ -96,7 +98,7 @@ const LeftSideBar = (props) => {
             })
             let data = await response.json();
             if (data.success) {
-                alert(data.message)
+                setAlertType({ alert: 'success', message: data.message })
                 // Update the preview with new URL if available
                 if (data.user.profilePicture) {
                     setPreviewImage(data.user.profilePicture)
@@ -107,11 +109,11 @@ const LeftSideBar = (props) => {
                 setShowUpdateBtn(false); // Hide after successful update
                 navigate("/home")
             } else {
-                alert(data.message)
+                setAlertType({ alert: 'error', message: data.message })
             }
         } catch (error) {
             console.error('Update error:', error);
-            alert("Update failed.");
+            setAlertType({ alert: 'error', message: error.message })
         }
     }
 
@@ -162,7 +164,9 @@ const LeftSideBar = (props) => {
                     bg-off-blue-200 text-dark-blue-900 
                     rounded-4xl 
                     max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
-
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
             <form
                 className="flex flex-col items-center gap-8 w-full"
                 onSubmit={handleSubmit(onSubmit)}

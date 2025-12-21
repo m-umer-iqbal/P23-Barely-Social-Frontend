@@ -3,7 +3,7 @@ import ToggleTabs from "./subComponents/ToggleTabs";
 import UsersList from "./subComponents/UsersList";
 import { idContext } from '../context/context';
 import { globalRefreshContext } from "../context/context"
-import Loading from "./Loading";
+import Loading from "./subComponents/Loading";
 
 const RightSideBar = () => {
     const [loading, setLoading] = useState(true);

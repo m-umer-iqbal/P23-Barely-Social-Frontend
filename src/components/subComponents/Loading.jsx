@@ -24,7 +24,6 @@ const Loading = () => {
                 </div>
             </div>
             <div className="animate-pulse space-y-2 mt-4">
-
                 <h2 className="text-2xl font-semibold text-dark-blue-900">
                     Loading...
                 </h2>

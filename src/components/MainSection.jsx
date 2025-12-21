@@ -3,7 +3,7 @@ import MakePost from './subComponents/MakePost'
 import Post from './subComponents/Post'
 import ToggleTabs from "./subComponents/ToggleTabs"
 import { idContext, globalRefreshContext, editPostContext } from "../context/context"
-import Loading from "./Loading"
+import Loading from "./subComponents/Loading"
 
 const MainSection = () => {
     const [loading, setLoading] = useState(true)
