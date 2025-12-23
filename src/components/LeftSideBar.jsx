@@ -6,7 +6,7 @@ import { idContext, globalRefreshContext } from '../context/context'
 import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
 
 const LeftSideBar = (props) => {
-    const [alertType, setAlertType] = useState(null) // 'success' | 'info' | 'warning' | 'error'
+    const [alertType, setAlertType] = useState(null);
     const navigate = useNavigate();
     const [showUpdateBtn, setShowUpdateBtn] = useState(true);
     const id = useContext(idContext)

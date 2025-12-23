@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
 import ProfilePicture from "./ProfilePicture"
 import { idContext, globalRefreshContext } from '../../context/context';
+import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
 
 const UsersList = (props) => {
+    const [alertType, setAlertType] = useState(null);
     const userId = useContext(idContext)
     const { setGlobalRefresh } = useContext(globalRefreshContext)
     const [following, setFollowing] = useState(null);
@@ -28,7 +30,7 @@ const UsersList = (props) => {
                 setFollowing(null);
                 setGlobalRefresh(prev => !prev)
             }
-            alert(data.message);
+            setAlertType({ alert: 'success', message: data.message })
             return;
         }
 
@@ -42,11 +44,15 @@ const UsersList = (props) => {
             setFollowing("following");
             setGlobalRefresh(prev => !prev)
         }
-        alert(data.message);
+        setAlertType({ alert: 'success', message: data.message })
     };
 
     return (
         <div className="flex gap-4 border-b-4 pb-3 last:border-b-0">
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
+
             <div className="">
                 <ProfilePicture profilePicture={props.profilePicture} />
             </div>

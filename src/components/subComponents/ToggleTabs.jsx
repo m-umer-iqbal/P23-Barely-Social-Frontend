@@ -2,7 +2,6 @@ import React from "react";
 
 const ToggleTabs = ({ options, active, setActive, minWidth }) => {
     const width = minWidth + "%"
-    console.log(width)
     return (
         <div className="bg-off-blue-200 flex justify-around gap-2 font-semibold sticky top-0 z-10 min-w-full p-2">
             {options.map((opt) => (

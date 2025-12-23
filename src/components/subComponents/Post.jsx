@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { idContext, globalRefreshContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context'
 import ProfilePicture from "./ProfilePicture.jsx";
+import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
 
 const Post = (props) => {
+    const [alertType, setAlertType] = useState(null);
     const userProfilePicture = useContext(profilePictureContext)
     const { setGlobalRefresh } = useContext(globalRefreshContext)
     const { setIsPostContentEditable } = useContext(isPostContentEditableContext)
@@ -36,12 +38,12 @@ const Post = (props) => {
             });
             const data = await response.json();
             if (data.success) {
-                alert(data.message)
+                setAlertType({ alert: 'success', message: data.message })
             } else {
-                alert(data.message)
+                setAlertType({ alert: 'error', message: data.message })
             }
         } catch (error) {
-            alert("Error updating reaction", error);
+            setAlertType({ alert: 'error', message: error })
         }
     };
 
@@ -77,12 +79,13 @@ const Post = (props) => {
             });
             const data = await response.json();
             if (data.success) {
-                alert(data.message)
+                setAlertType({ alert: 'success', message: data.message })
                 setGlobalRefresh(prev => !prev)
             } else {
-                alert(data.message)
+                setAlertType({ alert: 'error', message: data.message })
             }
         } catch (error) {
+            setAlertType({ alert: 'error', message: "Error in Deleting Post" })
             setGlobalRefresh(prev => !prev)
         }
     }
@@ -108,6 +111,10 @@ const Post = (props) => {
 
     return (
         <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
+
             <div className="flex justify-between">
                 <div className='flex gap-4'>
                     <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
@@ -116,7 +123,7 @@ const Post = (props) => {
                         <p className="text-sm">
                             {props.updatedAt && props.updatedAt !== props.createdAt
                                 ? `Updated at: ${formatDate(props.updatedAt)}`
-                                : `Posted on: ${formatDate(props.createdAt)}`}
+                                : `${formatDate(props.createdAt)}`}
                         </p>
                     </div>
                 </div>
@@ -211,7 +218,7 @@ const Post = (props) => {
                                 : "filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
                                 }`}
                         />
-                        <span>Like</span>
+                        <span>{likesCount < 2 ? "Like" : "Likes"}</span>
                     </button>
                 </div>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>
@@ -230,7 +237,7 @@ const Post = (props) => {
                                 : "filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
                                 }`}
                         />
-                        <span>Dislike</span>
+                        <span>{dislikesCount < 2 ? "Dislike" : "Dislikes"}</span>
                     </button>
                 </div>
             </div>

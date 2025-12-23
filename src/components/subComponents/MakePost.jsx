@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form'
 import { idContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context';
 import { useNavigate } from "react-router-dom";
 import ProfilePicture from "./ProfilePicture";
+import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
 
 const MakePost = (props) => {
+    const [alertType, setAlertType] = useState(null)
     const userId = useContext(idContext)
     const userProfilePicture = useContext(profilePictureContext)
     const { setPostToEdit } = useContext(editPostContext)
@@ -36,13 +38,13 @@ const MakePost = (props) => {
         if (file) {
             // Check file type
             if (!file.type.startsWith('image/')) {
-                alert('Please select an image file')
+                setAlertType({ alert: 'warning', message: "Please select an image." })
                 return
             }
 
             // Check file size (5MB limit)
             if (file.size > 5 * 1024 * 1024) {
-                alert('File size should be less than 5MB')
+                setAlertType({ alert: 'warning', message: "File size should be less than 5MB" })
                 return
             }
             setPostImage(file)
@@ -67,7 +69,7 @@ const MakePost = (props) => {
                 })
                 let data = await response.json();
                 if (data.success) {
-                    alert(data.message)
+                    setAlertType({ alert: 'success', message: data.message })
                     setPostToEdit({
                         inEditing: false,
                         postId: null,
@@ -83,7 +85,7 @@ const MakePost = (props) => {
                     setPostImage(null)
                     navigate("/home")
                 } else {
-                    alert(data.message)
+                    setAlertType({ alert: 'error', message: data.message })
                 }
             } else {
                 const newFormData = new FormData()
@@ -101,7 +103,7 @@ const MakePost = (props) => {
                 })
                 let data = await response.json();
                 if (data.success) {
-                    alert(data.message)
+                    setAlertType({ alert: 'success', message: data.message })
                     if (props.postMade) {
                         props.setPostMade(false)
                     } else {
@@ -111,12 +113,11 @@ const MakePost = (props) => {
                     setPostImage(null)
                     navigate("/home")
                 } else {
-                    alert(data.message)
+                    setAlertType({ alert: 'error', message: data.message })
                 }
             }
         } catch (error) {
-            console.error('Post error:', error);
-            alert("Posting failed.");
+            setAlertType({ alert: 'error', message: "Posting Failed" })
         }
     }
 
@@ -135,6 +136,9 @@ const MakePost = (props) => {
 
     return (
         <form className='static top-0 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 space-y-4' onSubmit={handleSubmit(onSubmit)}>
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
             <div className='flex gap-4'>
                 <ProfilePicture profilePicture={userProfilePicture} />
                 <div className="flex flex-col gap-2">

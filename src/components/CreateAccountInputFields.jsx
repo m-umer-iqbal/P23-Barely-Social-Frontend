@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom';
+import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage";
 
 const CreateAccountInputFields = () => {
-    const navigate = useNavigate(); // this is a hook
+    const [alertType, setAlertType] = useState(null);
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -13,26 +15,35 @@ const CreateAccountInputFields = () => {
     } = useForm();
 
     const onSubmit = async (formdata) => {
-        let response = await fetch("http://localhost:3000/create-account", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formdata),
-        })
-        let data = await response.json();
+        try {
 
-        if (data.success) {
-            reset();
-            navigate("/home")
-        } else {
-            reset();
-            alert(data.message)
+            let response = await fetch("http://localhost:3000/create-account", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formdata),
+            })
+            let data = await response.json();
+
+            if (data.success) {
+                reset();
+                setAlertType({ alert: 'success', message: data.message })
+                navigate("/home")
+            } else {
+                reset();
+                setAlertType({ alert: 'error', message: data.message })
+            }
+        } catch (error) {
+            setAlertType({ alert: 'error', message: "Error in sending create account request" })
         }
     }
     const password = watch("password");
     return (
         <form className='flex flex-col justify-center items-center space-y-4 min-w-full' onSubmit={handleSubmit(onSubmit)}>
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
 
             <input
                 {...register("fullname", {

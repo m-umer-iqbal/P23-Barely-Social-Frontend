@@ -4,6 +4,7 @@ import Post from './subComponents/Post'
 import ToggleTabs from "./subComponents/ToggleTabs"
 import { idContext, globalRefreshContext, editPostContext } from "../context/context"
 import Loading from "./subComponents/Loading"
+import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
 
 const MainSection = () => {
     const [loading, setLoading] = useState(true)
@@ -13,6 +14,7 @@ const MainSection = () => {
     const [postMade, setPostMade] = useState(false)
     const [posts, setPosts] = useState([])
     const [category, setCategory] = useState("allPosts")
+    const [alertType, setAlertType] = useState(null)
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -26,21 +28,30 @@ const MainSection = () => {
                 if (data.success) {
                     setPosts(data.posts);
                     setLoading(false)
+                    setAlertType({ alert: "success", message: data.message })
                 } else {
-                    alert("Error fetching posts.");
+                    setAlertType({ alert: "error", message: data.message })
                     setLoading(false)
                 }
             } catch {
-                alert("Error occurred in sending fetching posts request.");
+                setAlertType({ alert: "error", message: "Error occurred in sending fetching posts request." })
                 setLoading(false)
             }
         };
-        setTimeout(fetchPosts(), 3000)
+        fetchPosts()
     }, [category, postMade, globalRefresh])
+
+    const handleTabChange = (newCategory) => {
+        setCategory(newCategory);
+        setPosts([]);
+        setLoading(true);
+    };
 
     return (
         <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
-
+            {alertType && alertType.alert && (
+                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+            )}
             <MakePost postMade={postMade} setPostMade={setPostMade} update={postToEdit.inEditing} postId={postToEdit.postId} content={postToEdit.inEditing ? postToEdit.content : ""} />
 
             <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0 relative'>
@@ -48,11 +59,11 @@ const MainSection = () => {
                 <ToggleTabs
                     options={[
                         { label: "Strangers", value: "allPosts" },
-                        { label: "Strangers in Judgement", value: "following" },
-                        { label: "My Post", value: "myPosts" }
+                        { label: "Following", value: "following" },
+                        { label: "My Posts", value: "myPosts" }
                     ]}
                     active={category}
-                    setActive={setCategory}
+                    setActive={handleTabChange}
                     minWidth={32}
                 />
                 {loading ? <Loading /> : <div className="space-y-4">{[...posts].sort((o, n) => {
