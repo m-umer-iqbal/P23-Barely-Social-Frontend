@@ -25,7 +25,6 @@ const RightSideBar = () => {
                 if (data.success) {
                     setUsers(data.usersList);
                     setLoading(false)
-                    setAlertType({ alert: 'success', message: data.message })
                 } else {
                     setAlertType({ alert: 'error', message: data.message })
                     setLoading(false)

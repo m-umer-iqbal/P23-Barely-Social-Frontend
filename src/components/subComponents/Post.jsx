@@ -38,7 +38,7 @@ const Post = (props) => {
             });
             const data = await response.json();
             if (data.success) {
-                setAlertType({ alert: 'success', message: data.message })
+                // setAlertType({ alert: 'success', message: data.message })
             } else {
                 setAlertType({ alert: 'error', message: data.message })
             }

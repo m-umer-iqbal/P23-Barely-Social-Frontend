@@ -9,7 +9,7 @@ const SuccessOrWarningMessage = ({ alert, message, onClose }) => {
             const timer = setTimeout(() => {
                 setShow(false)
                 if (onClose) onClose()
-            }, 1000) // auto-hide after 1s
+            }, 2000) // auto-hide after 2s
             return () => clearTimeout(timer)
         }
     }, [alert, onClose])
