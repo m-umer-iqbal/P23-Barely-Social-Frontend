@@ -204,12 +204,6 @@ const LeftSideBar = (props) => {
                         />
                     </div>
 
-                    {/* File info */}
-                    {profilePicture && (
-                        <div className="text-sm text-mid-blue-700 mt-2">
-                            Selected: {profilePicture.name} ({(profilePicture.size / 1024).toFixed(1)} KB)
-                        </div>
-                    )}
                     <div className='flex justify-center items-baseline space-x-4 relative group'
                         onMouseOver={() => { setNameEdit(true) }}
                         onMouseOut={() => { setNameEdit(false) }}>
