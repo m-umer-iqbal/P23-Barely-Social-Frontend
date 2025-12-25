@@ -1,5 +1,5 @@
 import React from "react"
-import CreateAccount from "./pages/CreateAccount"
+import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Logo from './components/Logo'
@@ -18,7 +18,7 @@ function App() {
     },
     {
       path: "/create-account",
-      element: <CreateAccount />
+      element: <SignUp />
     },
     {
       path: "/login",

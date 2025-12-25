@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom';
 import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage";
 
-const CreateAccountInputFields = () => {
+const SignUpInputFields = () => {
     const [alertType, setAlertType] = useState(null);
     const navigate = useNavigate();
     const {
@@ -40,14 +40,19 @@ const CreateAccountInputFields = () => {
     }
     const password = watch("password");
     return (
-        <form className='flex flex-col justify-center items-center space-y-4 min-w-full' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col justify-center items-center
+                        w-full max-w-md md:max-w-lg
+                        space-y-2
+                        sm:space-y-3
+                        md:space-y-4'
+            onSubmit={handleSubmit(onSubmit)}>
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
 
             <input
                 {...register("fullname", {
-                    required: "We know you’re Barely Social, but at least tell us your name 😅",
+                    required: "Okay, you’re Barely Social, but what’s your name? 😅",
                     minLength: {
                         value: 3,
                         message: "That is barely a name… add a few more letters 😅",
@@ -58,11 +63,11 @@ const CreateAccountInputFields = () => {
                 autoComplete='off'
                 className='input-field'
             />
-            {errors.fullname && <span className="text-red-500 text-[20px] font-semibold">{errors.fullname.message}</span>}
+            {errors.fullname && <span className="text-red-500 font-semibold text-center text-xs">{errors.fullname.message}</span>}
 
             <input
                 {...register("email", {
-                    required: "Even Barely Social people need an email 📨",
+                    required: "Even Barely Social people need an email 😏",
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: "That doesn’t look like a real email, chief 👀",
@@ -73,7 +78,7 @@ const CreateAccountInputFields = () => {
                 autoComplete='off'
                 className='input-field'
             />
-            {errors.email && <span className="text-red-500 text-[20px] font-semibold">{errors.email.message}</span>}
+            {errors.email && <span className="text-red-500 font-semibold text-center text-xs">{errors.email.message}</span>}
 
             <input
                 {...register("username", {
@@ -92,7 +97,7 @@ const CreateAccountInputFields = () => {
                 autoComplete='off'
                 className='input-field'
             />
-            {errors.username && <span className="text-red-500 text-[20px] font-semibold">{errors.username.message}</span>}
+            {errors.username && <span className="text-red-500 font-semibold text-center text-xs">{errors.username.message}</span>}
 
             <input
                 {...register("password", {
@@ -111,7 +116,7 @@ const CreateAccountInputFields = () => {
                 autoComplete='off'
                 className='input-field'
             />
-            {errors.password && <span className="text-red-500 text-[20px] font-semibold">{errors.password.message}</span>}
+            {errors.password && <span className="text-red-500 font-semibold text-center text-xs">{errors.password.message}</span>}
 
             <input
                 {...register("confirmPassword", {
@@ -125,17 +130,19 @@ const CreateAccountInputFields = () => {
                 autoComplete='off'
                 className='input-field'
             />
-            {errors.confirmPassword && <span className="text-red-500 text-[20px] font-semibold">{errors.confirmPassword.message}</span>}
+            {errors.confirmPassword && <span className="text-red-500 font-semibold text-center text-xs">{errors.confirmPassword.message}</span>}
 
             <input
                 disabled={isSubmitting}
                 type="submit"
                 value={isSubmitting ? "Processing..." : "Create Account"}
-                className='text-3xl bg-dark-blue-900 text-blue-400 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
+                className='bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-4 py-2 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:bg-mid-blue-700 disabled:cursor-not-allowed
+                md:text-2xl
+                transition-all duration-300 ease-in-out'
             />
 
         </form>
     )
 }
 
-export default CreateAccountInputFields
+export default SignUpInputFields

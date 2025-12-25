@@ -10,6 +10,7 @@
 
 @layer components {
     .input-field {
-        @apply text-dark-blue-900 text-[20px] font-semibold w-[50%] p-4 rounded bg-off-blue-200 placeholder:opacity-80 placeholder:text-dark-blue-900 placeholder:font-semibold invalid:border-pink-500 invalid:text-pink-600 focus:border-dark-blue-900 focus:outline focus:outline-dark-blue-900 focus:invalid:border-pink-500 focus:invalid:outline-pink-500;
+        @apply w-full text-dark-blue-900 font-semibold p-2 bg-off-blue-200 border-b border-dark-blue-900 placeholder:opacity-80 placeholder:text-dark-blue-900 placeholder:font-semibold invalid:border-pink-500 invalid:text-pink-600 focus:border-dark-blue-900 focus:border-b-4 focus:invalid:border-pink-500 outline-0
+        md:text-2xl;
     }
 }

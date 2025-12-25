@@ -7,7 +7,7 @@ const GoogleBtn = () => {
         type="button"
         data-twe-ripple-init
         data-twe-ripple-color="light"
-        className="mb-2 inline-block rounded bg-[#ea4335] px-8 py-4 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg cursor-pointer">
+        className="mb-2 inline-block rounded-4xl bg-[#ea4335] px-8 py-4 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-2xl focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg cursor-pointer">
         <span className="[&>svg]:h-6 [&>svg]:w-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"

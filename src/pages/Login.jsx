@@ -3,7 +3,7 @@ import Logo from '../components/Logo'
 import AlreadyHaveAccount from '../components/subComponents/AlreadyHaveAccount';
 import GoogleBtn from '../components/subComponents//Btns/GoogleBtn';
 import GithubBtn from '../components/subComponents//Btns/GithubBtn';
-import FacebookBtn from '../components/subComponents//Btns/FacebookBtn';
+import FacebookBtn from '../components/subComponents/Btns/FacebookBtn';
 import FormHeading from '../components/subComponents/formHeading';
 import LoginInputFields from '../components/LoginInputFields';
 
