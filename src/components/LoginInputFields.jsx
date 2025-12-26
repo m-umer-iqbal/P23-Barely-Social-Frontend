@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom'
 import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage";
 
-const LoginInputFields = () => {
+const LogInInputFields = () => {
     const [alertType, setAlertType] = useState(null);
     const navigate = useNavigate();
     const {
@@ -40,7 +40,12 @@ const LoginInputFields = () => {
     }
 
     return (
-        <form className='flex flex-col justify-center items-center space-y-4 min-w-full' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col justify-center items-center
+                        w-full max-w-md md:max-w-lg
+                        space-y-2
+                        sm:space-y-3
+                        md:space-y-4 md:mt-8'
+            onSubmit={handleSubmit(onSubmit)}>
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
@@ -64,7 +69,7 @@ const LoginInputFields = () => {
             />
 
             {errors.username && (
-                <span className="text-red-500 text-[20px] font-semibold">
+                <span className="text-red-500 font-semibold text-center text-xs">
                     {errors.username.message}
                 </span>
             )}
@@ -88,7 +93,7 @@ const LoginInputFields = () => {
             />
 
             {errors.password && (
-                <span className="text-red-500 text-[20px] font-semibold">
+                <span className="text-red-500 font-semibold text-center text-xs">
                     {errors.password.message}
                 </span>
             )}
@@ -97,11 +102,13 @@ const LoginInputFields = () => {
                 disabled={isSubmitting}
                 type="submit"
                 value={isSubmitting ? "Processing..." : "Login"}
-                className='text-3xl bg-dark-blue-900 text-blue-400 font-semibold rounded my-4 px-8 py-4 hover:bg-mid-blue-700 cursor-pointer disabled:bg-light-blue-500 disabled:cursor-not-allowed'
+                className='bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-4 py-2 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:bg-mid-blue-700 disabled:cursor-not-allowed
+                md:text-2xl
+                transition-all duration-300 ease-in-out'
             />
 
         </form>
     )
 }
 
-export default LoginInputFields
+export default LogInInputFields
