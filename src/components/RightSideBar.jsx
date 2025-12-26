@@ -45,7 +45,7 @@ const RightSideBar = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen" >
+        <div className="hidden flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen" >
 
             <ToggleTabs
                 options={[

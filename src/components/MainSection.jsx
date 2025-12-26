@@ -5,6 +5,7 @@ import ToggleTabs from "./subComponents/ToggleTabs"
 import { idContext, globalRefreshContext, editPostContext } from "../context/context"
 import Loading from "./subComponents/Loading"
 import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
+import EmptyState from "./subComponents/EmptyState"
 
 const MainSection = () => {
     const [loading, setLoading] = useState(true)
@@ -47,13 +48,20 @@ const MainSection = () => {
     };
 
     return (
-        <div className='min-w-[44%] max-w-[44%] flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen'>
+        <div className='flex flex-col gap-4 bg-off-blue-200 text-dark-blue-900 rounded-4xl h-full min-h-0
+                        p-2
+                        sm:p-4
+                        md:p-5
+                        lg:p-6
+                        xl:p-7
+                        2xl:p-8'>
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
+
             <MakePost postMade={postMade} setPostMade={setPostMade} update={postToEdit.inEditing} postId={postToEdit.postId} content={postToEdit.inEditing ? postToEdit.content : ""} />
 
-            <div className='space-y-4 flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-0 relative'>
+            <div className='space-y-4 flex-1 min-h-0 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-0 relative'>
 
                 <ToggleTabs
                     options={[
@@ -65,25 +73,56 @@ const MainSection = () => {
                     setActive={handleTabChange}
                     minWidth={32}
                 />
-                {loading ? <Loading /> : <div className="space-y-4">{[...posts].sort((o, n) => {
-                    return (new Date(n.createdAt) - new Date(o.createdAt))
-                }).map((post) => {
-                    return (<Post
-                        key={post._id}
-                        id={post._id}
-                        userId={post.author._id}
-                        fullname={post.author.fullname}
-                        username={post.author.username}
-                        content={post.content}
-                        likes={post.likes}
-                        dislikes={post.dislikes}
-                        image={post.image}
-                        createdAt={post.createdAt}
-                        updatedAt={post.updatedAt}
-                        profilePicture={post.author?.profilePicture || post.profilePicture}
-                        category={category}
-                    />)
-                })}</div>}
+
+                {loading ? (
+                    <Loading />
+                ) : posts.length === 0 ? (
+                    <EmptyState
+                        emoji={
+                            category === "allPosts"
+                                ? "🌍"
+                                : category === "following"
+                                    ? "👥"
+                                    : "✍️"
+                        }
+                        title={
+                            category === "allPosts"
+                                ? "No posts yet"
+                                : category === "following"
+                                    ? "No posts from people you follow"
+                                    : "You haven’t posted anything"
+                        }
+                        subtitle={
+                            category === "allPosts"
+                                ? "Be the first one to break the silence."
+                                : category === "following"
+                                    ? "Follow some people to see their posts here."
+                                    : "Share your first thought with the world."
+                        }
+                    />
+                ) : (
+                    <div className="space-y-4">
+                        {[...posts]
+                            .sort((o, n) => new Date(n.createdAt) - new Date(o.createdAt))
+                            .map((post) => (
+                                <Post
+                                    key={post._id}
+                                    id={post._id}
+                                    userId={post.author._id}
+                                    fullname={post.author.fullname}
+                                    username={post.author.username}
+                                    content={post.content}
+                                    likes={post.likes}
+                                    dislikes={post.dislikes}
+                                    image={post.image}
+                                    createdAt={post.createdAt}
+                                    updatedAt={post.updatedAt}
+                                    profilePicture={post.author?.profilePicture || post.profilePicture}
+                                    category={category}
+                                />
+                            ))}
+                    </div>
+                )}
             </div>
         </div>
     )

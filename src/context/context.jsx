@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 
 export const idContext = createContext();
-export const profilePictureContext = createContext();
+export const profilePictureContext = createContext("https://picsum.photos/2000.webp");
 
 export const globalRefreshContext = createContext();
 

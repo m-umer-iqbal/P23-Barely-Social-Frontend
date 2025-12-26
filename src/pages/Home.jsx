@@ -52,7 +52,13 @@ const Home = () => {
     return (
         <profilePictureContext.Provider value={user?.profilePicture || "https://picsum.photos/2000.webp"}>
             <idContext.Provider value={user?.id || ""}>
-                <div className='flex gap-8 p-10 min-h-screen bg-dark-blue-900 max-h-screen'>
+                <div className='h-screen bg-dark-blue-900 overflow-hidden
+                                p-2
+                                sm:p-4
+                                md:p-5
+                                lg:p-6
+                                xl:p-7
+                                2xl:p-8'>
                     <LeftSideBar
                         fullname={user?.fullname || ""}
                         username={user?.username || ""}

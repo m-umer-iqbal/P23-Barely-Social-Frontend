@@ -110,7 +110,7 @@ const Post = (props) => {
     };
 
     return (
-        <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4 overflow-y-auto text-2xl'>
+        <div className='flex flex-col gap-4 bg-dark-blue-900 text-off-blue-200 rounded-4xl p-4'>
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
@@ -119,10 +119,10 @@ const Post = (props) => {
                 <div className='flex gap-4'>
                     <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
                     <div className='flex flex-col'>
-                        <p>{props.fullname || "@" + props.username}</p>
-                        <p className="text-sm">
+                        <p className="text-base">{props.fullname || "@" + props.username}</p>
+                        <p className="text-xs">
                             {props.updatedAt && props.updatedAt !== props.createdAt
-                                ? `Updated at: ${formatDate(props.updatedAt)}`
+                                ? `${formatDate(props.updatedAt)} • Edited`
                                 : `${formatDate(props.createdAt)}`}
                         </p>
                     </div>
@@ -130,18 +130,20 @@ const Post = (props) => {
 
                 <div>
                     {isMyPostCategory && (
-                        <div className="flex gap-2">
-                            <div className={`group p-2 rounded-full transition-all duration-300 cursor-pointer ${isCurrentlyEditing
+                        <div className="flex gap-1">
+                            <div className={`group rounded-full transition-all duration-300 ease-in-out cursor-pointer p-1 ${isCurrentlyEditing
                                 ? 'bg-off-blue-200'
                                 : 'hover:bg-off-blue-200'
                                 }`}>
                                 <img
                                     src="/src/assets/edit-icon.svg"
                                     alt="Edit-Icon"
-                                    className={`w-6 filter transition-all duration-300 ${isCurrentlyEditing
+                                    className={`filter transition-all duration-300 ease-in-out ${isCurrentlyEditing
                                         ? 'filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]'
                                         : 'filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]'
-                                        }`}
+                                        } w-5
+                                        sm:w-5.5
+                                        md:w-6`}
                                     onClick={() => {
                                         // If already editing this post, reset and start fresh
                                         if (isCurrentlyEditing) {
@@ -177,11 +179,14 @@ const Post = (props) => {
                                 />
                             </div>
 
-                            {!isCurrentlyEditing && <div className="group p-2 rounded-full transition-all duration-300 hover:bg-red-500 cursor-pointer">
+                            {!isCurrentlyEditing && <div className="group rounded-full transition-all duration-300 ease-in-out hover:bg-red-500 cursor-pointer p-1">
                                 <img
                                     src="/src/assets/delete-icon.svg"
                                     alt="Delete-Icon"
-                                    className="filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] w-6 filter transition-all duration-300 group-hover:filter-[invert(100%)_sepia(98%)_saturate(0%)_hue-rotate(331deg)_brightness(103%)_contrast(102%)]"
+                                    className="filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] filter transition-all duration-300 group-hover:filter-[invert(100%)_sepia(98%)_saturate(0%)_hue-rotate(331deg)_brightness(103%)_contrast(102%)] 
+                                    w-5
+                                    sm:w-5.5
+                                    md:w-6"
                                     onClick={() => {
                                         if (confirm("Delete this post?")) {
                                             handleDelete();
@@ -197,13 +202,15 @@ const Post = (props) => {
             </div>
 
             <div className="flex flex-col gap-2">
-                <div>{props.content}</div>
+                <div className="wrap-break-words overflow-hidden">{props.content}</div>
                 {props.image && <div><img src={props.image} alt="Post" className="mt-2 rounded-4xl" /></div>}
             </div>
 
             <div className='flex justify-around gap-2 font-semibold border-t-2 border-off-blue-200 pt-2'>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>
-                    <span className='text-lg'>{likesCount}</span>
+                    <span className='text-sm
+                                    sm:text-base
+                                    md:text-lg'>{likesCount}</span>
 
                     <button
                         onClick={handleLike}
@@ -213,16 +220,22 @@ const Post = (props) => {
                         <img
                             src="/src/assets/like-icon.svg"
                             alt="like-button"
-                            className={`w-8 filter ${reacted === "like"
+                            className={`filter ${reacted === "like"
                                 ? "filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
                                 : "filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
-                                }`}
+                                }
+                                w-6
+                                sm:w-7
+                                md:w-8`}
                         />
-                        <span>{likesCount < 2 ? "Like" : "Likes"}</span>
+                        <span className="sm:text-xl
+                                        md:text-2xl">{likesCount < 2 ? "Like" : "Likes"}</span>
                     </button>
                 </div>
                 <div className='flex flex-col justify-center items-center gap-2 min-w-[49%]'>
-                    <span className='text-lg'>{dislikesCount}</span>
+                    <span className='text-sm
+                                    sm:text-base
+                                    md:text-lg'>{dislikesCount}</span>
 
                     <button
                         onClick={handleDislike}
@@ -232,12 +245,16 @@ const Post = (props) => {
                         <img
                             src="/src/assets/dislike-icon.svg"
                             alt="dislike-button"
-                            className={`w-8 filter ${reacted === "dislike"
+                            className={`filter ${reacted === "dislike"
                                 ? "filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
                                 : "filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]"
-                                }`}
+                                }
+                                w-6
+                                sm:w-7
+                                md:w-8`}
                         />
-                        <span>{dislikesCount < 2 ? "Dislike" : "Dislikes"}</span>
+                        <span className="sm:text-xl
+                                        md:text-2xl">{dislikesCount < 2 ? "Dislike" : "Dislikes"}</span>
                     </button>
                 </div>
             </div>

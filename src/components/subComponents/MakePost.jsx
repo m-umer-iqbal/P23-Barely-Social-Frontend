@@ -141,13 +141,18 @@ const MakePost = (props) => {
             )}
             <div className='flex gap-4'>
                 <ProfilePicture profilePicture={userProfilePicture} />
+
                 <div className="flex flex-col gap-2">
                     <textarea
-                        className='text-2xl font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 placeholder-mid-blue-700 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden'
+                        className='font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden break-all overflow-x-hidden
+                        placeholder-mid-blue-700
+                        text-sm
+                        md:text-base
+                        lg:text-2xl'
                         placeholder="Share your thoughts..."
                         autoComplete='off'
                         {...register("content", {
-                            required: "You can’t be Barely Social without writing anything 😏",
+                            required: "Type something to be Barely Soical 😏",
                             maxLength: {
                                 value: 500,
                                 message: "Whoa there! That’s too social — max 500 characters 😅",
@@ -178,14 +183,20 @@ const MakePost = (props) => {
             <div className='flex justify-between items-center'>
                 <button
                     type="button"
-                    className='flex gap-2 rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'
+                    className='flex gap-2 rounded-4xl font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group
+                    px-2 py-1 text-xs
+                    sm:px-2.5 sm:py-1.5 sm:text-sm
+                    md:px-3 md:py-2 md:text-base'
                     onClick={triggerFileInput}
                 >
                     <img
                         src="/src/assets/image-upload-icon.svg"
                         alt="Image-Upload-Icon"
-                        className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />
-                    <span>Image</span>
+                        className='filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]
+                        w-4
+                        sm:w-5
+                        md:w-6' />
+                    <span className="hidden sm:block">Image</span>
                     {/* Hidden file input */}
                     <input
                         type="file"
@@ -198,7 +209,7 @@ const MakePost = (props) => {
 
 
                 {errors.content ? (
-                    <span className="text-red-500 font-semibold">
+                    <span className="text-red-500 font-semibold text-center text-xs">
                         {errors.content.message}
                     </span>
                 ) : (
@@ -210,6 +221,7 @@ const MakePost = (props) => {
                 )}
 
                 <div className="flex gap-2 justify-center items-center">
+                    {/* Cancel Button */}
                     {props.update && (
                         <button
                             type="button"
@@ -232,15 +244,23 @@ const MakePost = (props) => {
                             <span>Cancel</span>
                         </button>
                     )}
+
+                    {/* Post Button */}
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className='flex gap-1 justify-center items-center rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group'
+                        className='flex gap-1 justify-center items-center rounded-4xl font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group
+                        px-2 py-1 text-xs
+                        sm:px-2.5 sm:py-1.5 sm:text-sm
+                        md:px-3 md:py-2 md:text-base'
                     >
                         {!isSubmitting && <img
                             src="/src/assets/post-icon.svg"
                             alt="Post"
-                            className='w-6 filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]' />}
+                            className='filter filter-[invert(88%)_sepia(5%)_saturate(2050%)_hue-rotate(166deg)_brightness(100%)_contrast(106%)] group-hover:filter-[invert(12%)_sepia(65%)_saturate(1494%)_hue-rotate(200deg)_brightness(91%)_contrast(95%)]
+                            w-4
+                            sm:w-5
+                            md:w-6' />}
                         <span>{props.update ? (isSubmitting ? "Updating..." : "Update") : (isSubmitting ? "Posting..." : "Post")}</span>
                     </button>
                 </div>
