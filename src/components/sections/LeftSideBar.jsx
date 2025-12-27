@@ -158,8 +158,9 @@ const LeftSideBar = (props) => {
     }
 
     return (
-        <div className="hidden flex-col items-center min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0
-                        lg:flex">
+        <div className="hidden flex-col items-center text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0 pb-16
+                        lg:hidden lg:min-w-[38vw] lg:max-w-[38vw]
+                        2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw]">
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
@@ -173,8 +174,14 @@ const LeftSideBar = (props) => {
                         <img
                             src={previewImage}
                             alt="DP"
-                            className="w-60 h-60 object-cover rounded-full border-8 border-dark-blue-900 cursor-pointer
-               transition-opacity group-hover:opacity-60"
+                            className="object-cover rounded-full border-dark-blue-900 cursor-pointer
+               transition-opacity group-hover:opacity-60
+                                    border-6 
+                                    w-40 h-40
+                                    sm:w-44 sm:h-44
+                                    md:w-48 md:h-48
+                                    lg:w-40 lg:h-40 lg:border-6
+                                    xl:w-60 xl:h-60"
                             onClick={triggerFileInput}
                         />
 
@@ -293,7 +300,8 @@ const LeftSideBar = (props) => {
                                 value={emailValue}
                                 autoComplete='off'
                                 placeholder='Email Address'
-                                className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
+                                className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700
+                                        lg:text-xl'
                                 onChange={handleEmailChange}
                                 disabled={!isEmailEditable}
                                 ref={emailInputRef}
@@ -327,12 +335,14 @@ const LeftSideBar = (props) => {
                 <div className='flex gap-16'>
                     <div className='flex flex-col justify-center items-center'>
                         <p className='font-bold'>{props.followers}</p>
-                        <p className='font-semibold text-2xl text-mid-blue-700'>Followers</p>
+                        <p className='font-semibold text-2xl text-mid-blue-700
+                                    lg:text-xl'>Followers</p>
                     </div>
 
                     <div className='flex flex-col justify-center items-center'>
                         <p className='font-bold'>{props.following}</p>
-                        <p className='font-semibold text-2xl text-mid-blue-700'>Following</p>
+                        <p className='font-semibold text-2xl text-mid-blue-700
+                                    lg:text-xl'>Following</p>
                     </div>
                 </div>
 

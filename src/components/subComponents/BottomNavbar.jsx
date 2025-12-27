@@ -15,13 +15,13 @@ const BottomNavbar = () => {
         border-t border-off-blue-200
         flex justify-around items-center
         h-14
-        lg:hidden
+        2xl:hidden
         z-50"
         >
             {/* Profile */}
             <button
                 onClick={() => navigate("/profile")}
-                className={`flex flex-col items-center gap-1 text-xs font-semibold transition
+                className={`flex flex-col items-center gap-1 text-xs font-semibold transition lg:hidden
           ${isActive("/profile")
                         ? "text-off-blue-200"
                         : "text-off-blue-200 hover:text-off-blue-200"
