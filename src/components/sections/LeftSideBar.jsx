@@ -2,8 +2,8 @@ import React from 'react'
 import { useState, useRef, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { idContext, globalRefreshContext } from '../context/context'
-import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
+import { idContext, globalRefreshContext } from '../../context/context'
+import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage";
 
 const LeftSideBar = (props) => {
     const [alertType, setAlertType] = useState(null);
@@ -158,12 +158,8 @@ const LeftSideBar = (props) => {
     }
 
     return (
-        <div className="hidden flex-col items-center 
-                    min-w-[25vw] max-w-[25vw] 
-                    text-4xl p-8 
-                    bg-off-blue-200 text-dark-blue-900 
-                    rounded-4xl 
-                    max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0">
+        <div className="hidden flex-col items-center min-w-[25vw] max-w-[25vw] text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0
+                        lg:flex">
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}

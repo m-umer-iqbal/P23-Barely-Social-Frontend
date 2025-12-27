@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../components/Logo"
-import LeftSideBar from '../components/LeftSideBar';
-import MainSection from '../components/MainSection';
-import RightSideBar from '../components/RightSideBar';
+import LeftSideBar from "../components/sections/LeftSideBar";
+import MainSection from '../components/sections/MainSection';
+import RightSideBar from '../components/sections/RightSideBar';
 import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate, profilePictureContext } from "../context/context"
+import BottomNavbar from "../components/subComponents/BottomNavbar";
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -55,8 +56,8 @@ const Home = () => {
                 <div className='h-screen bg-dark-blue-900 overflow-hidden
                                 p-2
                                 sm:p-4
-                                md:p-5
-                                lg:p-6
+                                md:p-5 
+                                lg:p-6 lg:flex md:gap-4
                                 xl:p-7
                                 2xl:p-8'>
                     <LeftSideBar
@@ -74,6 +75,7 @@ const Home = () => {
                         </EditPostContextUpdate>
                     </IsPostContentEditableContextUpdate>
                     <RightSideBar />
+                    <BottomNavbar />
                 </div>
             </idContext.Provider>
         </profilePictureContext.Provider>

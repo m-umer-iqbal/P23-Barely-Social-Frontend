@@ -147,7 +147,8 @@ const MakePost = (props) => {
                         className='font-semibold field-sizing-content focus:outline-none border-transparent bg-transparent text-off-blue-200 w-full max-w-full resize-none leading-tight wrap-break-words overflow-y-hidden break-all overflow-x-hidden
                         placeholder-mid-blue-700
                         text-sm
-                        md:text-base
+                        sm:text-base
+                        md:text-xl
                         lg:text-2xl'
                         placeholder="Share your thoughts..."
                         autoComplete='off'

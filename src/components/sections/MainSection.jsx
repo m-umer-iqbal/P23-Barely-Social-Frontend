@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import MakePost from './subComponents/MakePost'
-import Post from './subComponents/Post'
-import ToggleTabs from "./subComponents/ToggleTabs"
-import { idContext, globalRefreshContext, editPostContext } from "../context/context"
-import Loading from "./subComponents/Loading"
-import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage"
-import EmptyState from "./subComponents/EmptyState"
+import MakePost from '../subComponents/MakePost'
+import Post from '../subComponents/Post'
+import ToggleTabs from "../subComponents/ToggleTabs"
+import { idContext, globalRefreshContext, editPostContext } from "../../context/context"
+import Loading from "../subComponents/Loading"
+import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage"
+import EmptyState from "../subComponents/EmptyState"
 
 const MainSection = () => {
     const [loading, setLoading] = useState(true)
@@ -48,11 +48,11 @@ const MainSection = () => {
     };
 
     return (
-        <div className='flex flex-col gap-4 bg-off-blue-200 text-dark-blue-900 rounded-4xl h-full min-h-0
+        <div className='flex flex-col gap-4 pb-16 bg-off-blue-200 text-dark-blue-900 rounded-4xl h-full min-h-0
                         p-2
                         sm:p-4
-                        md:p-5
-                        lg:p-6
+                        md:p-5 
+                        lg:p-6 lg:min-w-[45vw]
                         xl:p-7
                         2xl:p-8'>
             {alertType && alertType.alert && (

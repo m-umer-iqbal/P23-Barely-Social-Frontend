@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import ToggleTabs from "./subComponents/ToggleTabs";
-import UsersList from "./subComponents/UsersList";
-import { idContext } from '../context/context';
-import { globalRefreshContext } from "../context/context"
-import Loading from "./subComponents/Loading";
-import SuccessOrWarningMessage from "./subComponents/SuccessOrWarningMessage";
+import ToggleTabs from "../subComponents/ToggleTabs";
+import UsersList from "../subComponents/UsersList";
+import { idContext } from '../../context/context';
+import { globalRefreshContext } from "../../context/context"
+import Loading from "../subComponents/Loading";
+import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage";
 
 const RightSideBar = () => {
     const [alertType, setAlertType] = useState(null);
@@ -45,7 +45,8 @@ const RightSideBar = () => {
     };
 
     return (
-        <div className="hidden flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen" >
+        <div className="hidden flex-col gap-4 min-w-[25vw] max-w-[25vw] p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen
+                        lg:flex" >
 
             <ToggleTabs
                 options={[

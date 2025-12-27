@@ -119,8 +119,8 @@ const Post = (props) => {
                 <div className='flex gap-4'>
                     <ProfilePicture profilePicture={isMyPostCategory ? userProfilePicture : props.profilePicture} />
                     <div className='flex flex-col'>
-                        <p className="text-base">{props.fullname || "@" + props.username}</p>
-                        <p className="text-xs">
+                        <p className="text-base md:text-xl lg:text-2xl">{props.fullname || "@" + props.username}</p>
+                        <p className="text-xs md:text-sm">
                             {props.updatedAt && props.updatedAt !== props.createdAt
                                 ? `${formatDate(props.updatedAt)} • Edited`
                                 : `${formatDate(props.createdAt)}`}
@@ -202,7 +202,8 @@ const Post = (props) => {
             </div>
 
             <div className="flex flex-col gap-2">
-                <div className="wrap-break-words overflow-hidden">{props.content}</div>
+                <div className="wrap-break-words overflow-hidden
+                                md:text-xl lg:text-2xl">{props.content}</div>
                 {props.image && <div><img src={props.image} alt="Post" className="mt-2 rounded-4xl" /></div>}
             </div>
 
