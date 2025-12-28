@@ -37,16 +37,16 @@ const Logo = (props) => {
     return (
         <div
             className="bg-dark-blue-900 min-h-screen flex flex-col justify-center items-center"
-            style={{ minWidth: props.width }}
-        >
-            <h1 className='font-semibold text-5xl text-off-blue-200
+            style={{ minWidth: props.width }} >
+            <h1 className='font-semibold text-off-blue-200
+                            text-5xl
                             sm:text-6xl
                             md:text-7xl
                             lg:text-8xl
                             xl:text-9xl'>
                 {text}
                 <span className="animate-pulse font-thin">|</span>
-            </h1 >
+            </h1>
 
             {(props.slash === "true" && props.width === "100vw") && (
                 <div className='flex gap-2 my-4 text-off-blue-200
@@ -69,12 +69,17 @@ const Logo = (props) => {
                     </a>
                 </div>
             )}
+
             {(props.slash === "false" && props.width === "100vw") && (
                 <div className="flex flex-col gap-2 justify-center items-center mt-4">
-                    <p className="text-blue-400 text-4xl font-semibold animate-pulse mt-6">
+                    <p className="text-blue-400 font-semibold animate-pulse mt-6 text-center
+                                    text-xl
+                                    lg:text-3xl">
                         Loading...
                     </p>
-                    <p className="text-blue-400 text-4xl font-semibold animate-pulse mt-6">
+                    <p className="text-blue-400 font-semibold animate-pulse mt-6 text-center
+                                    text-xl
+                                    lg:text-3xl">
                         Because Being Social Takes Efforts...
                     </p>
                 </div>

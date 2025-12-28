@@ -350,7 +350,7 @@ const LeftSideBar = (props) => {
                     type='submit'
                     value={isSubmitting ? "Processing..." : "Update"}
                     disabled={isSubmitting}
-                    className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:cursor-not-allowed transition-all duration-300 ease-in-out'
+                    className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:bg-mid-blue-700 disabled:text-off-blue-200 disabled:cursor-not-allowed transition-all duration-300 ease-in-out'
                 />}
             </form>
             {!isDirty && !isImageChanged && <div>

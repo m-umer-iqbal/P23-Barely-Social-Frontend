@@ -210,7 +210,9 @@ const MakePost = (props) => {
 
 
                 {errors.content ? (
-                    <span className="text-red-500 font-semibold text-center text-xs">
+                    <span className="text-red-500 font-semibold text-center text-xs
+                                    hidden
+                                    sm:block">
                         {errors.content.message}
                     </span>
                 ) : (
@@ -240,8 +242,10 @@ const MakePost = (props) => {
                                     props.onEditCancel();
                                 }
                             }}
-                            className='flex gap-1 justify-center items-center rounded-4xl px-3 py-2 font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-red-500 hover:border-red-500 hover:text-white group transition-all duration-300 ease-in-out'
-                        >
+                            className='flex gap-1 justify-center items-center rounded-4xl font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-red-500 hover:border-red-500 hover:text-white group transition-all duration-300 ease-in-out
+                            px-2 py-1 text-xs
+                            sm:px-2.5 sm:py-1.5 sm:text-sm
+                            md:px-3 md:py-2 md:text-base' >
                             <span>Cancel</span>
                         </button>
                     )}
@@ -250,7 +254,7 @@ const MakePost = (props) => {
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className='flex gap-1 justify-center items-center rounded-4xl font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group transition-all duration-300 ease-in-out
+                        className='flex gap-1 justify-center items-center rounded-4xl font-semibold cursor-pointer border-2 border-off-blue-200 text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900 group transition-all duration-300 ease-in-out disabled:bg-mid-blue-700 disabled:text-off-blue-200 disabled:cursor-not-allowed
                         px-2 py-1 text-xs
                         sm:px-2.5 sm:py-1.5 sm:text-sm
                         md:px-3 md:py-2 md:text-base'

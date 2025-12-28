@@ -136,7 +136,7 @@ const SignUpInputFields = () => {
                 disabled={isSubmitting}
                 type="submit"
                 value={isSubmitting ? "Processing..." : "Create Account"}
-                className='bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-4 py-2 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:bg-mid-blue-700 disabled:cursor-not-allowed
+                className='bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-4 py-2 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:bg-mid-blue-700 disabled:text-off-blue-200 disabled:cursor-not-allowed
                 md:text-2xl
                 transition-all duration-300 ease-in-out'
             />
