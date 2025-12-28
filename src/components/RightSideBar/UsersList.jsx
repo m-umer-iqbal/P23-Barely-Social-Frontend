@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
-import ProfilePicture from "./ProfilePicture"
+import ProfilePicture from "../Common/ProfilePicture"
 import { idContext, globalRefreshContext } from '../../context/context';
-import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
 
 const UsersList = (props) => {
-    const [alertType, setAlertType] = useState(null);
     const userId = useContext(idContext)
     const { setGlobalRefresh } = useContext(globalRefreshContext)
     const [following, setFollowing] = useState(null);

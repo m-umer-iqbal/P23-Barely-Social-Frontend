@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import MakePost from '../subComponents/MakePost'
-import Post from '../subComponents/Post'
-import ToggleTabs from "../subComponents/ToggleTabs"
+import MakePost from "../MainSection/MakePost"
+import Post from "../MainSection/Post"
+import ToggleTabs from "../Common/ToggleTabs"
 import { idContext, globalRefreshContext, editPostContext } from "../../context/context"
-import Loading from "../subComponents/Loading"
-import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage"
-import EmptyState from "../subComponents/EmptyState"
+import Loading from "../Common/Loading"
+import SuccessOrWarningMessage from "../Common/SuccessOrWarningMessage"
+import EmptyState from "../Common/EmptyState"
 
 const MainSection = (props) => {
     const [loading, setLoading] = useState(true)

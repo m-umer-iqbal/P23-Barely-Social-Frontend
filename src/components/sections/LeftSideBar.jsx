@@ -3,7 +3,7 @@ import { useState, useRef, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { idContext, globalRefreshContext } from '../../context/context'
-import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage";
+import SuccessOrWarningMessage from "../Common/SuccessOrWarningMessage";
 
 const LeftSideBar = (props) => {
     const [alertType, setAlertType] = useState(null);

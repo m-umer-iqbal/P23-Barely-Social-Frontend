@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { idContext, globalRefreshContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context'
-import ProfilePicture from "./ProfilePicture.jsx";
-import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
+import ProfilePicture from "../Common/ProfilePicture.jsx";
+import SuccessOrWarningMessage from "../Common/SuccessOrWarningMessage.jsx";
 
 const Post = (props) => {
     const [alertType, setAlertType] = useState(null);

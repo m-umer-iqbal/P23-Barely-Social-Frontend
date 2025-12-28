@@ -1,10 +1,10 @@
 import React from 'react'
-import AlreadyHaveAccount from '../components/subComponents/AlreadyHaveAccount';
-import GoogleBtn from '../components/subComponents/Btns/GoogleBtn';
-import GithubBtn from '../components/subComponents/Btns/GithubBtn';
-import FacebookBtn from '../components/subComponents/Btns/FacebookBtn';
-import FormHeading from '../components/subComponents/formHeading';
-import LogInInputFields from "../components/LoginInputFields";
+import LogInInputFields from "../components/LogIn/LogInInputFields";
+import AlreadyHaveAccount from '../components/Common/AlreadyHaveAccount';
+import GoogleBtn from '../components/Common/SocialBtns/GoogleBtn';
+import GithubBtn from '../components/Common/SocialBtns/GithubBtn';
+import FacebookBtn from '../components/Common/SocialBtns/FacebookBtn';
+import FormHeading from '../components/Common/FormHeading';
 
 const LogIn = () => {
     return (

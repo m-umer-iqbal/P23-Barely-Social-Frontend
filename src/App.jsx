@@ -1,8 +1,8 @@
 import React from "react"
 import SignUp from "./pages/SignUp"
-import Login from "./pages/Login"
+import LogIn from "./pages/LogIn"
 import Home from "./pages/Home"
-import Logo from './components/Logo'
+import Logo from "./components/Logo"
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { GlobalRefreshContextUpdate } from "./context/context"
 
@@ -22,7 +22,7 @@ function App() {
     },
     {
       path: "/login",
-      element: <Login />
+      element: <LogIn />
     }
   ])
   return (

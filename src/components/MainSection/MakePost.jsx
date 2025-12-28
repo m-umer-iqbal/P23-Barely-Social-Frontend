@@ -3,8 +3,8 @@ import { useState, useRef, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { idContext, isPostContentEditableContext, editPostContext, profilePictureContext } from '../../context/context';
 import { useNavigate } from "react-router-dom";
-import ProfilePicture from "./ProfilePicture";
-import SuccessOrWarningMessage from "./SuccessOrWarningMessage";
+import ProfilePicture from "../Common/ProfilePicture";
+import SuccessOrWarningMessage from "../Common/SuccessOrWarningMessage";
 
 const MakePost = (props) => {
     const [alertType, setAlertType] = useState(null)

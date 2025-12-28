@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
-import ToggleTabs from "../subComponents/ToggleTabs";
-import UsersList from "../subComponents/UsersList";
+import ToggleTabs from "../Common/ToggleTabs";
+import UsersList from "../RightSideBar/UsersList";
 import { idContext } from '../../context/context';
 import { globalRefreshContext } from "../../context/context"
-import Loading from "../subComponents/Loading";
-import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage";
-import SearchBar from "../subComponents/SearchBar";
+import Loading from "../Common/Loading";
+import SuccessOrWarningMessage from "../Common/SuccessOrWarningMessage";
+import SearchBar from "../RightSideBar/SearchBar";
 
 const RightSideBar = (props) => {
     const [alertType, setAlertType] = useState(null);
@@ -51,8 +51,7 @@ const RightSideBar = (props) => {
         const query = searchQuery.toLowerCase();
         const filtered = users.filter(user =>
             user.fullname?.toLowerCase().includes(query) ||
-            user.username?.toLowerCase().includes(query) ||
-            user.bio?.toLowerCase().includes(query)
+            user.username?.toLowerCase().includes(query)
         );
         setFilteredUsers(filtered);
     }, [searchQuery, users]);

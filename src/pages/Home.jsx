@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Logo from "../components/Logo"
+import Logo from "../components/Logo";
 import LeftSideBar from "../components/sections/LeftSideBar";
 import MainSection from '../components/sections/MainSection';
 import RightSideBar from '../components/sections/RightSideBar';
 import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate, profilePictureContext } from "../context/context"
-import BottomNavbar from "../components/subComponents/BottomNavbar";
-import SuccessOrWarningMessage from "../components/subComponents/SuccessOrWarningMessage";
+import BottomNavbar from "../components/Common/BottomNavbar";
+import SuccessOrWarningMessage from "../components/Common/SuccessOrWarningMessage";
 
 const Home = () => {
     const [alertType, setAlertType] = useState(null);
