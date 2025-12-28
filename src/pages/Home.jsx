@@ -6,6 +6,7 @@ import MainSection from '../components/sections/MainSection';
 import RightSideBar from '../components/sections/RightSideBar';
 import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, EditPostContextUpdate, profilePictureContext } from "../context/context"
 import BottomNavbar from "../components/subComponents/BottomNavbar";
+import SuccessOrWarningMessage from "../components/subComponents/SuccessOrWarningMessage";
 
 const Home = () => {
     const [activeView, setActiveView] = useState('home');
@@ -23,12 +24,28 @@ const Home = () => {
         }
     }, [globalRefresh]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024 && window.innerWidth < 1536) {
+                // At lg screens (1024px to 2xl), only show "home" or "people" views
+                if (activeView === "profile") {
+                    setActiveView("home"); // Auto-switch to home view
+                }
+            }
+        };
+
+        handleResize(); // Run on mount
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, [activeView]);
+
     const checkAuth = async () => {
         setTimeout(async () => {
             try {
                 let response = await fetch("http://localhost:3000/check-auth", {
                     method: "GET",
-                    credentials: "include" // This is correct
+                    credentials: "include"
                 });
 
                 let data = await response.json();
@@ -39,7 +56,7 @@ const Home = () => {
                     navigate('/login');
                 }
             } catch (error) {
-                alert("Error Occur In Checking User Authentication.");
+                setAlertType({ alert: 'error', message: "Error Checking User Authentication" })
                 navigate("/login")
             } finally {
                 setLoading(false)
@@ -61,6 +78,10 @@ const Home = () => {
                                 lg:p-6 lg:flex md:gap-4
                                 xl:p-7
                                 2xl:p-8'>
+
+                    {alertType && alertType.alert && (
+                        <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
+                    )}
 
                     <LeftSideBar
                         fullname={user?.fullname || ""}

@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 
 const BottomNavbar = (props) => {
-    const navigate = useNavigate();
-
     return (
         <div
             className="
