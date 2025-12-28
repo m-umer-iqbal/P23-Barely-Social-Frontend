@@ -30,7 +30,6 @@ const UsersList = (props) => {
                 setFollowing(null);
                 setGlobalRefresh(prev => !prev)
             }
-            setAlertType({ alert: 'success', message: data.message })
             return;
         }
 
@@ -44,24 +43,17 @@ const UsersList = (props) => {
             setFollowing("following");
             setGlobalRefresh(prev => !prev)
         }
-        setAlertType({ alert: 'success', message: data.message })
     };
 
     return (
         <div className="flex gap-4 border-b-4 pb-3 last:border-b-0">
-            {alertType && alertType.alert && (
-                <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
-            )}
-
-            <div className="">
-                <ProfilePicture profilePicture={props.profilePicture} />
-            </div>
+            <ProfilePicture profilePicture={props.profilePicture} />
             <div className="flex flex-col font-semibold items-start gap-2">
                 <p className="text-2xl">{props.fullname || "@" + props.username}</p>
                 <p className="">{props.bio}</p>
                 <button
                     onClick={handleClick}
-                    className={`rounded-4xl py-1.5 px-2 cursor-pointer border-2 border-dark-blue-900 ${following === "following" ? "hover:bg-red-500 hover:border-red-500 hover:text-white" : "hover:bg-dark-blue-900 hover:text-off-blue-200"}`}>
+                    className={`transition-all duration-300 ease-in-out rounded-4xl py-1.5 px-2 cursor-pointer border-2 border-dark-blue-900 ${following === "following" ? "hover:bg-red-500 hover:border-red-500 hover:text-white" : "hover:bg-dark-blue-900 hover:text-off-blue-200"}`}>
                     {props.btnText}
                 </button>
             </div>
