@@ -158,9 +158,9 @@ const LeftSideBar = (props) => {
     }
 
     return (
-        <div className="hidden flex-col items-center text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0 pb-16
-                        lg:hidden lg:min-w-[38vw] lg:max-w-[38vw]
-                        2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw]">
+        <div className={`${props.activeView === "profile" ? "flex" : "hidden"} flex-col items-center text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl min-h-screen max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0 pb-16
+                        ${props.activeView === "people" ? "lg:flex" : "lg:hidden"} lg:min-w-[38vw] lg:max-w-[38vw]
+                        2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw] 2xl:min-h-0`}>
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
@@ -181,7 +181,7 @@ const LeftSideBar = (props) => {
                                     sm:w-44 sm:h-44
                                     md:w-48 md:h-48
                                     lg:w-40 lg:h-40 lg:border-6
-                                    xl:w-60 xl:h-60"
+                                    xl:w-48 xl:h-48"
                             onClick={triggerFileInput}
                         />
 
@@ -350,11 +350,11 @@ const LeftSideBar = (props) => {
                     type='submit'
                     value={isSubmitting ? "Processing..." : "Update"}
                     disabled={isSubmitting}
-                    className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer  disabled:cursor-not-allowed'
+                    className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-4 px-8 py-4 hover:bg-dark-blue-900 hover:text-off-blue-200 cursor-pointer disabled:cursor-not-allowed transition-all duration-300 ease-in-out'
                 />}
             </form>
             {!isDirty && !isImageChanged && <div>
-                <a href="http://localhost:3000/logout"><button className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-12 px-8 py-4 hover:bg-red-500 hover:border-red-500 hover:text-white cursor-pointer'>
+                <a href="http://localhost:3000/logout"><button className='text-3xl bg-off-blue-200 text-dark-blue-900 border-2 border-dark-blue-900 font-semibold rounded-4xl my-12 px-8 py-4 hover:bg-red-500 hover:border-red-500 hover:text-white cursor-pointer transition-all duration-300 ease-in-out'>
                     Logout
                 </button></a>
             </div>}

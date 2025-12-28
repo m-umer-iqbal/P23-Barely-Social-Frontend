@@ -8,7 +8,7 @@ const ToggleTabs = ({ options, active, setActive, minWidth }) => {
                 <button
                     key={opt.value}
                     style={{ minWidth: `${minWidth}%` }}
-                    className={`p-1.5 cursor-pointer rounded-4xl border-2 border-dark-blue-900 group 
+                    className={`p-1.5 cursor-pointer rounded-4xl border-2 border-dark-blue-900 group transition-all duration-300 ease-in-out
                     ${active === opt.value
                             ? "bg-dark-blue-900 text-off-blue-200"
                             : "text-dark-blue-900 hover:bg-dark-blue-900 hover:text-off-blue-200"

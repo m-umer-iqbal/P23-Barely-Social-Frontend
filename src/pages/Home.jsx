@@ -8,6 +8,7 @@ import { idContext, globalRefreshContext, IsPostContentEditableContextUpdate, Ed
 import BottomNavbar from "../components/subComponents/BottomNavbar";
 
 const Home = () => {
+    const [activeView, setActiveView] = useState('home');
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ const Home = () => {
                                 lg:p-6 lg:flex md:gap-4
                                 xl:p-7
                                 2xl:p-8'>
+
                     <LeftSideBar
                         fullname={user?.fullname || ""}
                         username={user?.username || ""}
@@ -68,14 +70,18 @@ const Home = () => {
                         followers={user?.followers.length || 0}
                         following={user?.following.length || 0}
                         profilePicture={user?.profilePicture || "https://picsum.photos/2000.webp"}
+                        activeView={activeView}
                     />
+
                     <IsPostContentEditableContextUpdate>
                         <EditPostContextUpdate>
-                            <MainSection />
+                            <MainSection activeView={activeView} />
                         </EditPostContextUpdate>
                     </IsPostContentEditableContextUpdate>
-                    <RightSideBar />
-                    <BottomNavbar />
+
+                    <RightSideBar activeView={activeView} />
+
+                    <BottomNavbar activeView={activeView} setActiveView={setActiveView} />
                 </div>
             </idContext.Provider>
         </profilePictureContext.Provider>

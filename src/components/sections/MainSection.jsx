@@ -7,7 +7,7 @@ import Loading from "../subComponents/Loading"
 import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage"
 import EmptyState from "../subComponents/EmptyState"
 
-const MainSection = () => {
+const MainSection = (props) => {
     const [loading, setLoading] = useState(true)
     const userId = useContext(idContext)
     const { globalRefresh } = useContext(globalRefreshContext)
@@ -48,13 +48,13 @@ const MainSection = () => {
     };
 
     return (
-        <div className='hidden flex-col gap-4 pb-16 bg-off-blue-200 text-dark-blue-900 rounded-4xl h-full min-h-0
-                        p-2
+        <div className={`${props.activeView === "home" ? "flex lg:flex" : "hidden lg:hidden"} flex-col gap-4 bg-off-blue-200 text-dark-blue-900 rounded-4xl h-full min-h-0
+                        p-2 pb-16
                         sm:p-4 sm:pb-16
                         md:p-5 md:pb-16
-                        lg:p-6 lg:flex lg:min-w-full lg:max-w-full lg:pb-16
+                        lg:p-6 lg:min-w-full lg:max-w-full lg:pb-16
                         xl:p-7 xl:pb-16
-                        2xl:p-8 2xl:min-w-[45vw]'>
+                        2xl:flex 2xl:p-8 2xl:min-w-[45vw]`} >
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}

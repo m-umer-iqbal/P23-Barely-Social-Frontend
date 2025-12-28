@@ -204,7 +204,7 @@ const Post = (props) => {
             <div className="flex flex-col gap-2">
                 <div className="wrap-break-words overflow-hidden
                                 md:text-xl lg:text-2xl">{props.content}</div>
-                {props.image && <div><img src={props.image} alt="Post" className="mt-2 rounded-4xl" /></div>}
+                {props.image && <div><img src={props.image} alt="Post" loading="lazy" className="mt-2 rounded-4xl" /></div>}
             </div>
 
             <div className='flex justify-around gap-2 font-semibold border-t-2 border-off-blue-200 pt-2'>
@@ -215,8 +215,7 @@ const Post = (props) => {
 
                     <button
                         onClick={handleLike}
-                        className={`group flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
-                         ${reacted === "like" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
+                        className={`group transition-all duration-300 ease-in-out flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 ${reacted === "like" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
                     >
                         <img
                             src="/src/assets/like-icon.svg"
@@ -240,8 +239,7 @@ const Post = (props) => {
 
                     <button
                         onClick={handleDislike}
-                        className={`group flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 
-                         ${reacted === "dislike" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
+                        className={`group transition-all duration-300 ease-in-out flex gap-2 justify-center py-2 min-w-full cursor-pointer rounded-4xl border-2 border-off-blue-200 ${reacted === "dislike" ? "bg-off-blue-200 text-dark-blue-900" : "text-off-blue-200 hover:bg-off-blue-200 hover:text-dark-blue-900"}`}
                     >
                         <img
                             src="/src/assets/dislike-icon.svg"

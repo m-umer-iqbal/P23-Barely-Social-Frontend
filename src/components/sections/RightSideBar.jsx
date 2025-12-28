@@ -6,7 +6,7 @@ import { globalRefreshContext } from "../../context/context"
 import Loading from "../subComponents/Loading";
 import SuccessOrWarningMessage from "../subComponents/SuccessOrWarningMessage";
 
-const RightSideBar = () => {
+const RightSideBar = (props) => {
     const [alertType, setAlertType] = useState(null);
     const [loading, setLoading] = useState(true);
     const userId = useContext(idContext)
@@ -45,9 +45,9 @@ const RightSideBar = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen min-h-screen pb-16 min-w-full max-w-full
-                        lg:min-w-[57vw] lg:hidden lg:min-h-0
-                        2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw] 2xl:p-8" >
+        <div className={`${props.activeView === "people" ? "flex lg:flex" : "hidden lg:hidden"} flex-col gap-4 p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl max-h-screen min-h-screen pb-16 min-w-full max-w-full
+                        lg:min-w-[57vw] lg:min-h-0
+                        2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw] 2xl:p-8`} >
             <ToggleTabs
                 options={[
                     { label: "Following", value: "following" },
