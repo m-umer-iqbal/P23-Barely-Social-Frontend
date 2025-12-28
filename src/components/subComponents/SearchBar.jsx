@@ -54,7 +54,7 @@ const SearchBar = ({ onSearch, placeholder = "Search..." }) => {
                     value={searchQuery}
                     onChange={handleSearchChange}
                     placeholder={placeholder}
-                    className="w-full pl-12 pr-12 py-3.5 bg-dark-blue-900 text-off-blue-200 rounded-2xl 
+                    className="searchBar w-full pl-12 pr-12 py-3.5 bg-dark-blue-900 text-off-blue-200 rounded-2xl 
                              border border-dark-blue-900 font-semibold focus:outline-none  
                              placeholder-mid-blue-700 text-sm md:text-base
                              transition-all duration-200"
@@ -90,7 +90,7 @@ const SearchBar = ({ onSearch, placeholder = "Search..." }) => {
             {/* Responsive styling for different screen sizes */}
             <style jsx>{`
                 @media (max-width: 640px) {
-                    input {
+                    .searchBar {
                         font-size: 14px;
                         padding-top: 12px;
                         padding-bottom: 12px;
@@ -98,7 +98,7 @@ const SearchBar = ({ onSearch, placeholder = "Search..." }) => {
                 }
                 
                 @media (min-width: 641px) and (max-width: 768px) {
-                    input {
+                    .searchBar {
                         padding-top: 14px;
                         padding-bottom: 14px;
                     }

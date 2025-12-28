@@ -57,6 +57,10 @@ const SignUpInputFields = () => {
                         value: 3,
                         message: "That is barely a name… add a few more letters 😅",
                     },
+                    maxLength: {
+                        value: 20,
+                        message: "Whoa there! That’s too social — max 20 characters 😅",
+                    },
                 })}
                 type="text"
                 placeholder="Full Name"
@@ -71,6 +75,10 @@ const SignUpInputFields = () => {
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: "That doesn’t look like a real email, chief 👀",
+                    },
+                    maxLength: {
+                        value: 30,
+                        message: "Whoa there! That’s too social — max 30 characters 😅",
                     },
                 })}
                 type="email"

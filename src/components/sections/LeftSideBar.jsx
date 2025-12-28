@@ -161,9 +161,11 @@ const LeftSideBar = (props) => {
         <div className={`${props.activeView === "profile" ? "flex" : "hidden"} flex-col items-center text-4xl p-8 bg-off-blue-200 text-dark-blue-900 rounded-4xl min-h-screen max-h-screen overflow-y-auto [&::-webkit-scrollbar]:w-0 pb-16
                         ${props.activeView === "people" ? "lg:flex" : "lg:hidden"} lg:min-w-[38vw] lg:max-w-[38vw]
                         2xl:flex 2xl:min-w-[25vw] 2xl:max-w-[25vw] 2xl:min-h-0`}>
+
             {alertType && alertType.alert && (
                 <SuccessOrWarningMessage alert={alertType.alert} message={alertType.message} onClose={() => setAlertType(null)} />
             )}
+
             <form
                 className="flex flex-col items-center gap-8 w-full"
                 onSubmit={handleSubmit(onSubmit)}
@@ -215,7 +217,11 @@ const LeftSideBar = (props) => {
                             value={fullnameValue}
                             autoComplete='off'
                             placeholder='Full Name'
-                            className='font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700'
+                            className='font-semibold text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700
+                            text-[22px]
+                            sm:text-2xl
+                            md:text-[27px]
+                            lg:text-3xl'
                             onChange={handleFullnameChange}
                             disabled={!isNameEditable}
                             ref={fullnameInputRef}
@@ -240,7 +246,10 @@ const LeftSideBar = (props) => {
                             />
                         )}
                     </div>
-                    <p className='text-2xl text-mid-blue-700'>@{props.username}</p>
+                    <p className='text-base text-mid-blue-700 font-semibold
+                                sm:text-lg
+                                md:text-xl
+                                lg:text-[22px]'>@{props.username}</p>
                 </div>
 
                 <div className='flex flex-col justify-center items-center space-y-2'>
@@ -300,8 +309,13 @@ const LeftSideBar = (props) => {
                                 value={emailValue}
                                 autoComplete='off'
                                 placeholder='Email Address'
-                                className='text-2xl text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700
-                                        lg:text-xl'
+                                className='text-center field-sizing-content focus:outline-none focus:border-b-4 focus:border-dark-blue-900 border-transparent bg-transparent text-dark-blue-900 placeholder-mid-blue-700
+                                        text-base
+                                        sm:text-lg
+                                        md:text-xl
+                                        lg:text-[21px]
+                                        xl:text-2xl
+                                        2xl:text-xl'
                                 onChange={handleEmailChange}
                                 disabled={!isEmailEditable}
                                 ref={emailInputRef}

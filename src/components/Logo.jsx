@@ -72,13 +72,13 @@ const Logo = (props) => {
 
             {(props.slash === "false" && props.width === "100vw") && (
                 <div className="flex flex-col gap-2 justify-center items-center mt-4">
-                    <p className="text-blue-400 font-semibold animate-pulse mt-6 text-center
-                                    text-xl
+                    <p className="text-blue-400 font-semibold animate-pulse text-center
+                                    text-2xl
                                     lg:text-3xl">
                         Loading...
                     </p>
-                    <p className="text-blue-400 font-semibold animate-pulse mt-6 text-center
-                                    text-xl
+                    <p className="text-blue-400 font-semibold animate-pulse text-center
+                                    text-2xl
                                     lg:text-3xl">
                         Because Being Social Takes Efforts...
                     </p>

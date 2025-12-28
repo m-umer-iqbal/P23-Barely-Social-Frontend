@@ -9,6 +9,7 @@ import BottomNavbar from "../components/subComponents/BottomNavbar";
 import SuccessOrWarningMessage from "../components/subComponents/SuccessOrWarningMessage";
 
 const Home = () => {
+    const [alertType, setAlertType] = useState(null);
     const [activeView, setActiveView] = useState('home');
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
