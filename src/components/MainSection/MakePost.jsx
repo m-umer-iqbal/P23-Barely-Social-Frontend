@@ -225,7 +225,7 @@ const MakePost = (props) => {
 
                 <div className="flex gap-2 justify-center items-center">
                     {/* Cancel Button */}
-                    {props.update && (
+                    {(props.update && !isSubmitting) && (
                         <button
                             type="button"
                             onClick={() => {
