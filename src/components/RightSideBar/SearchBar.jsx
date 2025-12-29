@@ -33,7 +33,7 @@ const SearchBar = ({ onSearch, placeholder = "Search..." }) => {
                 {/* Search Icon */}
                 <div className="absolute left-4 z-10">
                     <svg
-                        className='w-5 h-5 transition-colors duration-200 text-off-blue-200'
+                        className='w-5 h-5 transition-colors duration-200 text-off-blue-200 cursor-pointer'
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ const SearchBar = ({ onSearch, placeholder = "Search..." }) => {
                     <button
                         onClick={handleClear}
                         className="absolute right-4 z-10 p-1 rounded-full 
-                                 transition-colors duration-200"
+                                 transition-colors duration-200 cursor-pointer"
                         aria-label="Clear search"
                     >
                         <svg
